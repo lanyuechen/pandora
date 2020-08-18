@@ -6,16 +6,16 @@ import Taro from '@tarojs/taro';
 import './index.scss'
 
 export default () => {
-  const toProfile = () => {
+  const toHome = () => {
     Taro.redirectTo({
-      url: '/pages/profile'
+      url: '/pages/index'
     })
   }
 
   return (
     <View>
-      <Text>hello world</Text>
-      <AtButton type="primary" onClick={toProfile}>profile</AtButton>
+      <Text>profile</Text>
+      <AtButton type="primary" onClick={toHome}>首页</AtButton>
     </View>
   )
 }

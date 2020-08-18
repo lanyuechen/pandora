@@ -1,5 +1,5 @@
 const config = {
-  projectName: 'taro-demo',
+  projectName: 'pandora',
   date: '2020-8-18',
   designWidth: 750,
   deviceRatio: {
@@ -8,7 +8,7 @@ const config = {
     828: 1.81 / 2
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: [],
   defineConstants: {
   },

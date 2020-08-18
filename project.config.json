@@ -1,6 +1,6 @@
 {
 	"miniprogramRoot": ".dist",
-	"projectname": "taro-demo",
+	"projectname": "pandora",
 	"description": "demo",
 	"appid": "touristappid",
 	"setting": {
