@@ -5,7 +5,7 @@ import { AtTabBar } from 'taro-ui';
 
 import './app.scss';
 
-export default (props) => {
+export default (props: any) => {
   const [ current, setCurrent ] = useState<number>(0);
   const tabList = useMemo(() => [
     { title: '首页', iconType: 'home', url: '/pages/index' },
@@ -14,10 +14,12 @@ export default (props) => {
   ], []);
 
   const handleClick = (idx: number) => {
-    Taro.redirectTo({
-      url: tabList[idx].url
-    })
-    setCurrent(idx);
+    if (idx !== current) {
+      Taro.redirectTo({
+        url: tabList[idx].url
+      })
+      setCurrent(idx);
+    }
   }
 
   return (

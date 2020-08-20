@@ -1,3 +1,5 @@
+import path from 'path';
+
 const config = {
   projectName: 'pandora',
   date: '2020-8-18',
@@ -19,6 +21,9 @@ const config = {
     }
   },
   framework: 'react',
+  alias: {
+    '@': path.resolve(__dirname, '..', 'src'),
+  },
   mini: {
     postcss: {
       pxtransform: {
@@ -62,7 +67,7 @@ const config = {
   }
 }
 
-module.exports = function (merge) {
+export default function (merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))
   }
