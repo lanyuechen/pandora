@@ -6,7 +6,6 @@ import { AtTabBar } from 'taro-ui';
 import './app.scss';
 
 export default (props: any) => {
-
   const tabList = useMemo(() => [
     { title: '首页', iconType: 'home', url: '/pages/index' },
     { title: '工作台', iconType: 'lightning-bolt', url: '/pages/workbench'},
