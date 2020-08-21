@@ -12,7 +12,6 @@ export default () => {
 
   useEffect(() => {
     projectService.list({}).then((res: any) => {
-      console.log('>>>>', res)
       if (res.success) {
         setList(res.data);
       }
@@ -20,7 +19,7 @@ export default () => {
   }, []);
   
   const toAdd = () => {
-    Taro.navigateTo({
+    Taro.redirectTo({
       url: '/pages/workbench/create'
     });
   };

@@ -1,4 +1,4 @@
-import loki, { Collection, LokiLocalStorageAdapter as Adapter } from 'lokijs';
+import Loki, { Collection, LokiLocalStorageAdapter as Adapter } from 'lokijs';
 import { uuid } from './common';
 
 const DB_NAME = 'pandora.db';
@@ -6,8 +6,8 @@ const DB_INSTANCE = Symbol.for('db-instance-key');
 const adapter = new Adapter();
 
 class DB {
-  db: any;
-  collection: Collection;
+  db: Loki;
+  collection: Collection | any;
 
   static getInstance() {
     if (!window[DB_INSTANCE]) {
@@ -17,12 +17,13 @@ class DB {
   }
 
   constructor() {
-    this.db = new loki(DB_NAME, {
+    this.db = new Loki(DB_NAME, {
       env: 'BROWSER',
       autosave: true,
-      autoload: true,
+      // autoload: true,
       adapter: adapter,
     });
+    this.db.loadDatabase();
   }
 
   table(name: string) {
@@ -44,7 +45,7 @@ class DB {
   }
 
   update(spec = {}, data: any) {
-    this.collection.findAndUpdate(spec, (d) => {
+    this.collection.findAndUpdate(spec, (d: any) => {
       Object.assign(d, data);
       return true;
     });

@@ -12,7 +12,9 @@ export default () => {
   const submit = () => {
     projectService.create(formData).then((res: any) => {
       if (res.success) {
-        Taro.navigateBack();
+        Taro.redirectTo({
+          url: '/pages/workbench'
+        });
       }
     })
   }
