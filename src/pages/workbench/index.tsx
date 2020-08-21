@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text } from '@tarojs/components';
-import { AtFab, AtList, AtListItem, AtSwipeAction } from 'taro-ui';
+import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar } from 'taro-ui';
 import Taro from '@tarojs/taro';
 
 import * as projectService from '@/services/project';
+
+import config from './index.config';
 
 import './index.scss';
 
@@ -48,6 +50,13 @@ export default () => {
 
   return (
     <View>
+      <AtNavBar
+        fixed
+        onClickRgIconSt={() => console.log('预留按钮')}
+        title={config.navigationBarTitleText}
+        rightFirstIconType="bullet-list"
+      />
+
       <AtList>
         {list.map((item: any) => (
           <AtSwipeAction

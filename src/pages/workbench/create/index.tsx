@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
-import { AtForm, AtInput, AtButton } from 'taro-ui';
+import { AtForm, AtInput, AtButton, AtNavBar } from 'taro-ui';
 import * as projectService from '@/services/project';
+import config from './index.config';
 
 import { Project } from '../data.d';
 
@@ -28,7 +29,16 @@ export default () => {
 
   return (
     <View>
-      <Text>创建</Text>
+      <AtNavBar
+        fixed
+        onClickRgIconSt={() => console.log('预留按钮')}
+        onClickLeftIcon={() => Taro.redirectTo({url: '/pages/workbench'})}
+        title={config.navigationBarTitleText}
+        leftText="返回"
+        leftIconType="chevron-left"
+        rightFirstIconType="bullet-list"
+      />
+
       <AtForm onSubmit={submit}>
         <AtInput 
           name="name" 
@@ -44,7 +54,7 @@ export default () => {
           placeholder="请输入项目简介"
           onChange={(value) => handleChange('desc', value)}
         />
-        <AtButton formType="submit" type="primary">提交</AtButton>
+        <AtButton full formType="submit" type="primary">提交</AtButton>
       </AtForm>
     </View>
   )

@@ -27,7 +27,9 @@ export default (props: any) => {
 
   return (
     <View>
-      {props.children}
+      <View className="main-container">
+        {props.children}
+      </View>
       <AtTabBar
         fixed
         tabList={tabList}

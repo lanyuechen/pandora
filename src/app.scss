@@ -1,1 +1,9 @@
 @import '~taro-ui/dist/style/index.scss';
+
+.main-container {
+  position: absolute; 
+  width: 100%;
+  top: 95px;
+  bottom: 130px;
+  overflow: auto;
+}
