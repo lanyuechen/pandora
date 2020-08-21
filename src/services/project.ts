@@ -13,9 +13,12 @@ export async function create(data: any) {
   return {
     success: true,
     data: res,
-  }
+  };
 }
 
 export async function remove(id: string) {
-  return DB.table('project').delete({_id: id});
+  DB.table('project').delete({_id: id});
+  return {
+    success: true
+  };
 }

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text } from '@tarojs/components';
-import { AtFab, AtList, AtListItem } from 'taro-ui';
+import { AtFab, AtList, AtListItem, AtSwipeAction } from 'taro-ui';
 import Taro from '@tarojs/taro';
 
 import * as projectService from '@/services/project';
@@ -10,12 +10,26 @@ import './index.scss';
 export default () => {
   const [ list, setList ] = useState([]);
 
-  useEffect(() => {
+  const swipeOption = useMemo(() => [
+    {
+      text: '',
+      style: {
+        backgroundColor: '#FF4949',
+      },
+      className: 'at-icon at-icon-trash'
+    }
+  ], [])
+
+  const refresh = () => {
     projectService.list({}).then((res: any) => {
       if (res.success) {
         setList(res.data);
       }
     });
+  }
+
+  useEffect(() => {
+    refresh();
   }, []);
   
   const toAdd = () => {
@@ -24,17 +38,31 @@ export default () => {
     });
   };
 
+  const handleRemove = (_id: string) => {
+    projectService.remove(_id).then(res => {
+      if (res.success) {
+        refresh();
+      }
+    });
+  }
+
   return (
     <View>
       <AtList>
         {list.map((item: any) => (
-          <AtListItem
+          <AtSwipeAction
+            autoClose
             key={item._id}
-            title={item.name}
-            note={item.desc}
-            arrow="right"
-            iconInfo={{ size: 25, color: '#78A4FA', value: 'calendar', }}
-          />
+            options={swipeOption}
+            onClick={() => handleRemove(item._id)}
+          >
+            <AtListItem
+              title={item.name}
+              note={item.desc}
+              arrow="right"
+              iconInfo={{ size: 25, color: '#78A4FA', value: 'shopping-bag' }}
+            />
+          </AtSwipeAction>
         ))}
       </AtList>
 
