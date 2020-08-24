@@ -8,12 +8,12 @@ import './app.scss';
 export default (props: any) => {
   const tabList = useMemo(() => [
     { title: '首页', iconType: 'home', url: '/pages/index' },
-    { title: '工作台', iconType: 'lightning-bolt', url: '/pages/workbench'},
+    { title: '工作台', iconType: 'lightning-bolt', url: '/pages/project'},
     { title: '个人页', iconType: 'user', url: '/pages/profile'},
   ], []);
 
   const [ current, setCurrent ] = useState<number>(() => {
-    return tabList.findIndex((tl: any) => tl.url === window.location.pathname);
+    return tabList.findIndex((tl: any) => window.location.pathname.includes(tl.url));
   });
   
   const handleClick = (idx: number) => {

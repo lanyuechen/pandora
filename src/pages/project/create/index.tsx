@@ -14,7 +14,7 @@ export default () => {
     projectService.create(formData).then((res: any) => {
       if (res.success) {
         Taro.redirectTo({
-          url: '/pages/workbench'
+          url: '/pages/project'
         });
       }
     })
@@ -32,7 +32,7 @@ export default () => {
       <AtNavBar
         fixed
         onClickRgIconSt={() => console.log('预留按钮')}
-        onClickLeftIcon={() => Taro.redirectTo({url: '/pages/workbench'})}
+        onClickLeftIcon={() => Taro.redirectTo({url: '/pages/project'})}
         title={config.navigationBarTitleText}
         leftText="返回"
         leftIconType="chevron-left"

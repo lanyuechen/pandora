@@ -43,7 +43,7 @@ export default () => {
   
   const toAdd = () => {
     Taro.redirectTo({
-      url: '/pages/workbench/create'
+      url: '/pages/project/create'
     });
   };
 
@@ -53,10 +53,6 @@ export default () => {
         getList();
       }
     });
-  }
-
-  const handleSearch = () => {
-    getList();
   }
 
   return (
@@ -71,7 +67,7 @@ export default () => {
       <AtSearchBar
         value={keywords}
         onChange={(value: string) => setKeywords(value)}
-        onActionClick={handleSearch}
+        onActionClick={getList}
       />
 
       <AtList>
@@ -92,7 +88,7 @@ export default () => {
         ))}
       </AtList>
 
-      <AtFab className="workbench-btn-add" onClick={toAdd}>
+      <AtFab className="project-btn-add" onClick={toAdd}>
         <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
     </View>
