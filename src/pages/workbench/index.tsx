@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text } from '@tarojs/components';
-import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar } from 'taro-ui';
+import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar, AtSearchBar } from 'taro-ui';
 import Taro from '@tarojs/taro';
 
 import * as projectService from '@/services/project';
@@ -11,6 +11,7 @@ import './index.scss';
 
 export default () => {
   const [ list, setList ] = useState([]);
+  const [ keywords, setKeywords ] = useState('');
 
   const swipeOption = useMemo(() => [
     {
@@ -22,8 +23,14 @@ export default () => {
     }
   ], [])
 
-  const refresh = () => {
-    projectService.list({}).then((res: any) => {
+  const getList = () => {
+    const spec = keywords ? {
+      name: { 
+        $regex: keywords
+      }
+    } : {};
+
+    projectService.list(spec).then((res: any) => {
       if (res.success) {
         setList(res.data);
       }
@@ -31,7 +38,7 @@ export default () => {
   }
 
   useEffect(() => {
-    refresh();
+    getList();
   }, []);
   
   const toAdd = () => {
@@ -43,9 +50,13 @@ export default () => {
   const handleRemove = (_id: string) => {
     projectService.remove(_id).then(res => {
       if (res.success) {
-        refresh();
+        getList();
       }
     });
+  }
+
+  const handleSearch = () => {
+    getList();
   }
 
   return (
@@ -55,6 +66,12 @@ export default () => {
         onClickRgIconSt={() => console.log('预留按钮')}
         title={config.navigationBarTitleText}
         rightFirstIconType="bullet-list"
+      />
+
+      <AtSearchBar
+        value={keywords}
+        onChange={(value: string) => setKeywords(value)}
+        onActionClick={handleSearch}
       />
 
       <AtList>
