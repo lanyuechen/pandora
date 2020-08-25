@@ -9,6 +9,14 @@ export async function list(spec: any) {
   };
 }
 
+export async function detail(id: string) {
+  const res: Project = DB.table('project').findOne({_id: id});
+  return {
+    success: true,
+    data: res,
+  };
+}
+
 export async function create(data: CreateParams) {
   const res = DB.table('project').insert({
     ...data,

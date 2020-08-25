@@ -50,7 +50,7 @@ export default () => {
 
   const toDetail = (id: string) => {
     Taro.redirectTo({
-      url: `/pages/views?id=${id}`
+      url: `/pages/projects/detail?id=${id}`
     });
   };
 
