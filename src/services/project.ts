@@ -46,3 +46,13 @@ export async function remove(id: string) {
     success: true
   };
 }
+
+export async function removeViews(id: string, vid: string) {
+  DB.table('project').update({_id: id}, (d: any) => ({
+    ...d,
+    views: d.views.filter((v: any) => v.id !== vid),
+  }));
+  return {
+    success: true
+  };
+}

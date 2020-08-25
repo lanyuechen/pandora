@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { View } from '@tarojs/components';
-import { AtList, AtListItem, AtSwipeAction, AtNavBar } from 'taro-ui';
+import { View, Text } from '@tarojs/components';
+import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar } from 'taro-ui';
 import Taro, { useRouter } from '@tarojs/taro';
 
 import { Project } from '@/pages/projects/data';
@@ -50,8 +50,8 @@ export default () => {
     getDetail();
   }, []);
   
-  const handleRemove = (_id: string) => {
-    service.remove(_id).then(res => {
+  const handleRemove = (vid: string) => {
+    service.removeViews(id, vid).then(res => {
       if (res.success) {
         getDetail();
       }
@@ -94,7 +94,7 @@ export default () => {
             autoClose
             key={item.id}
             options={swipeOption}
-            onClick={() => handleRemove(item._id)}
+            onClick={() => handleRemove(item.id)}
           >
             <AtListItem
               title={item.meta ? item.meta.name : '该视图已被删除，请移除该配置项。'}
@@ -105,6 +105,10 @@ export default () => {
           </AtSwipeAction>
         ))}
       </AtList>
+
+      <AtFab className="fab-btn-add">
+        <Text className="at-fab__icon at-icon at-icon-add" />
+      </AtFab>
     </View>
   )
 }

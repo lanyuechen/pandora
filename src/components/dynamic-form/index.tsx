@@ -48,7 +48,7 @@ export default (props: PropType) => {
                     <AtList>
                       <AtListItem
                         title={c.title}
-                        extraText={options[vIdx].value}
+                        extraText={d[c.key] ? options[vIdx].value : ''}
                       />
                     </AtList>
                   </Picker>

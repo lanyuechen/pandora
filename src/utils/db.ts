@@ -46,8 +46,8 @@ class DB {
 
   update(spec = {}, data: any) {
     this.collection.findAndUpdate(spec, (d: any) => {
+      data = typeof data === 'function' ? data(d) : data;
       Object.assign(d, data);
-      return true;
     });
   }
 
