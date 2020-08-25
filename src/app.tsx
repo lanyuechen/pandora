@@ -15,11 +15,9 @@ export default (props: any) => {
   const current = tabList.findIndex((tl: any) => window.location.pathname.includes(tl.url));
 
   const handleClick = (idx: number) => {
-    if (idx !== current) {
-      Taro.redirectTo({
-        url: tabList[idx].url
-      })
-    }
+    Taro.redirectTo({
+      url: tabList[idx].url
+    });
   }
 
   return (
