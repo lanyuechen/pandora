@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { AtForm, AtInput, AtButton, AtNavBar } from 'taro-ui';
-import * as projectService from '@/services/project';
+import * as service from '@/services/project';
 import config from './index.config';
 
 import { Project } from '../data.d';
@@ -11,10 +11,10 @@ export default () => {
   const [ formData, setFormData ] = useState<Project>({} as Project);
   
   const submit = () => {
-    projectService.create(formData).then((res: any) => {
+    service.create(formData).then((res: any) => {
       if (res.success) {
         Taro.redirectTo({
-          url: '/pages/project'
+          url: '/pages/projects'
         });
       }
     })
@@ -32,7 +32,7 @@ export default () => {
       <AtNavBar
         fixed
         onClickRgIconSt={() => console.log('预留按钮')}
-        onClickLeftIcon={() => Taro.redirectTo({url: '/pages/project'})}
+        onClickLeftIcon={() => Taro.redirectTo({url: '/pages/projects'})}
         title={config.navigationBarTitleText}
         leftText="返回"
         leftIconType="chevron-left"

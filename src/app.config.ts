@@ -1,9 +1,11 @@
 export default {
   pages: [
-    'pages/index',                // 首页
-    'pages/project',              // 控制台（项目列表）
-    'pages/project/create',       // 控制台-创建项目
-    'pages/project/:id',          // 项目详情（组件列表）
+    'pages/projects',             // 项目列表
+    'pages/projects/create',      // 项目列表-创建项目
+    'pages/views',                // 视图列表（项目详情）?id=项目id
+    'pages/views/create',         // 视图列表-创建视图
+    'pages/components',           // 组件列表（视图详情）?id=视图id
+    'pages/components/create',    // 组件列表-创建组件
     'pages/profile',              // 个人页
   ],
   window: {

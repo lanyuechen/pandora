@@ -3,7 +3,7 @@ import { View, Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar, AtSearchBar } from 'taro-ui';
 import Taro from '@tarojs/taro';
 
-import * as projectService from '@/services/project';
+import * as service from '@/services/view';
 
 import config from './index.config';
 
@@ -30,7 +30,7 @@ export default () => {
       }
     } : {};
 
-    projectService.list(spec).then((res: any) => {
+    service.list(spec).then((res: any) => {
       if (res.success) {
         setList(res.data);
       }
@@ -43,12 +43,12 @@ export default () => {
   
   const toAdd = () => {
     Taro.redirectTo({
-      url: '/pages/project/create'
+      url: '/pages/views/create'
     });
   };
 
   const handleRemove = (_id: string) => {
-    projectService.remove(_id).then(res => {
+    service.remove(_id).then(res => {
       if (res.success) {
         getList();
       }
@@ -88,7 +88,7 @@ export default () => {
         ))}
       </AtList>
 
-      <AtFab className="project-btn-add" onClick={toAdd}>
+      <AtFab className="fab-btn-add" onClick={toAdd}>
         <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
     </View>

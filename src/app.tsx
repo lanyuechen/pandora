@@ -7,9 +7,9 @@ import './app.scss';
 
 export default (props: any) => {
   const tabList = useMemo(() => [
-    { title: '首页', iconType: 'home', url: '/pages/index' },
-    { title: '工作台', iconType: 'lightning-bolt', url: '/pages/project'},
-    { title: '个人页', iconType: 'user', url: '/pages/profile'},
+    { title: '项目', iconType: 'bookmark', url: '/pages/projects'},
+    { title: '视图', iconType: 'iphone', url: '/pages/views'},
+    { title: '组件', iconType: 'money', url: '/pages/components'},
   ], []);
 
   const [ current, setCurrent ] = useState<number>(() => {

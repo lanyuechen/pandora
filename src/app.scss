@@ -7,3 +7,11 @@
   bottom: 130px;
   overflow: auto;
 }
+
+/* 列表页浮动创建按钮 */
+.fab-btn-add {
+  position: fixed;
+  right: 32px;
+  bottom: 160px;
+  z-index: 10;
+}
