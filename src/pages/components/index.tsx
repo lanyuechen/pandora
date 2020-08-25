@@ -82,7 +82,7 @@ export default () => {
               title={item.name}
               note={item.desc}
               arrow="right"
-              iconInfo={{ size: 25, color: '#78A4FA', value: 'shopping-bag' }}
+              iconInfo={{ size: 25, color: '#78A4FA', value: 'money' }}
             />
           </AtSwipeAction>
         ))}

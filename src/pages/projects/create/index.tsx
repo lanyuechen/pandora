@@ -3,6 +3,7 @@ import { View } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import { AtForm, AtInput, AtButton, AtNavBar } from 'taro-ui';
 import * as service from '@/services/project';
+import DynamicForm from '@/components/dynamic-form';
 import config from './index.config';
 
 import { Project } from '../data.d';
@@ -54,6 +55,19 @@ export default () => {
           placeholder="请输入项目简介"
           onChange={(value) => handleChange('desc', value)}
         />
+        
+        <DynamicForm
+          config={[
+            {
+              key: 'path',
+              title: '视图路径',
+              placeholder: '请输入视图路径'
+            }
+          ]}
+          value={formData.views}
+          onChange={(value: any) => handleChange('views', value)}
+        />
+
         <AtButton full formType="submit" type="primary">提交</AtButton>
       </AtForm>
     </View>

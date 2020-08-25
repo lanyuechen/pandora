@@ -4,13 +4,14 @@ import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar, AtSearchBar } from 
 import Taro from '@tarojs/taro';
 
 import * as service from '@/services/project';
+import { Project } from './data';
 
 import config from './index.config';
 
 import './index.scss';
 
 export default () => {
-  const [ list, setList ] = useState([]);
+  const [ list, setList ] = useState<Project[]>([]);
   const [ keywords, setKeywords ] = useState('');
 
   const swipeOption = useMemo(() => [
@@ -49,7 +50,7 @@ export default () => {
 
   const toDetail = (id: string) => {
     Taro.redirectTo({
-      url: `/pages/components?id=${id}`
+      url: `/pages/views?id=${id}`
     });
   };
 
@@ -77,7 +78,7 @@ export default () => {
       />
 
       <AtList>
-        {list.map((item: any) => (
+        {list.map(item => (
           <AtSwipeAction
             autoClose
             key={item._id}
@@ -88,7 +89,7 @@ export default () => {
               title={item.name}
               note={item.desc}
               arrow="right"
-              iconInfo={{ size: 25, color: '#78A4FA', value: 'shopping-bag' }}
+              iconInfo={{ size: 25, color: '#78A4FA', value: 'bookmark' }}
               onClick={() => toDetail(item._id)}
             />
           </AtSwipeAction>

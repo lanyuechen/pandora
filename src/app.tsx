@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Taro from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import { AtTabBar } from 'taro-ui';
@@ -12,16 +12,13 @@ export default (props: any) => {
     { title: '组件', iconType: 'money', url: '/pages/components'},
   ], []);
 
-  const [ current, setCurrent ] = useState<number>(() => {
-    return tabList.findIndex((tl: any) => window.location.pathname.includes(tl.url));
-  });
-  
+  const current = tabList.findIndex((tl: any) => window.location.pathname.includes(tl.url));
+
   const handleClick = (idx: number) => {
     if (idx !== current) {
       Taro.redirectTo({
         url: tabList[idx].url
       })
-      setCurrent(idx);
     }
   }
 
