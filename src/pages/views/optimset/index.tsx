@@ -1,36 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { View } from '@tarojs/components';
-import Taro from '@tarojs/taro';
+import Taro, { useRouter } from '@tarojs/taro';
 import { AtForm, AtInput, AtButton, AtNavBar } from 'taro-ui';
 import * as service from '@/services/view';
 import * as componentService from '@/services/component';
 import DynamicForm from '@/components/dynamic-form';
-import config from './index.config';
 import { View as ViewItem } from '../data.d';
 
 export default () => {
   const [ formData, setFormData ] = useState<ViewItem>({} as ViewItem);
   const [ componentOptions, setComponentOptions ] = useState<any>([]);
+  const { id } = useRouter().params;
+
+  const init = async () => {
+    const options = await componentService.list({});
+    if (options.success) {
+      setComponentOptions(options.data.map((d: any) => ({
+        key: d._id,
+        value: d.name,
+      })));
+    }
+    if (id) {
+      const detail = await service.detail(id);
+      if (detail.success) {
+        setFormData(detail.data);
+      }
+    }
+  }
 
   useEffect(() => {
-    componentService.list({}).then(res => {
-      if (res.success) {
-        setComponentOptions(res.data.map((d: any) => ({
-          key: d._id,
-          value: d.name,
-        })));
-      }
-    })
+    init();
   }, []);
-  
-  const submit = () => {
-    service.create(formData).then((res: any) => {
-      if (res.success) {
-        Taro.redirectTo({
-          url: '/pages/views'
-        });
-      }
-    })
+
+  const submit = async () => {
+    let res;
+    if (id) {
+      res = await service.update(id, formData);
+    } else {
+      res = await service.create(formData);
+    }
+    if (res.success) {
+      Taro.redirectTo({
+        url: '/pages/views'
+      });
+    }
   }
 
   const handleChange = (key: string, value: any) => {
@@ -46,7 +59,7 @@ export default () => {
         fixed
         onClickRgIconSt={() => console.log('预留按钮')}
         onClickLeftIcon={() => Taro.redirectTo({url: '/pages/views'})}
-        title={config.navigationBarTitleText}
+        title={id ? '编辑视图' : '创建视图'}
         leftText="返回"
         leftIconType="chevron-left"
         rightFirstIconType="bullet-list"
@@ -78,7 +91,7 @@ export default () => {
               options: componentOptions,
             },
           ]}
-          value={formData.subsets}
+          value={formData.subsets || []}
           onChange={(value: any) => handleChange('subsets', value)}
         />
 

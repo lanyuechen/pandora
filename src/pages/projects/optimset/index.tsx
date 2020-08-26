@@ -1,37 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { View } from '@tarojs/components';
-import Taro from '@tarojs/taro';
+import Taro, { useRouter } from '@tarojs/taro';
 import { AtForm, AtInput, AtButton, AtNavBar } from 'taro-ui';
 import * as service from '@/services/project';
 import * as viewService from '@/services/view';
 import DynamicForm from '@/components/dynamic-form';
-import config from './index.config';
 
 import { Project } from '../data.d';
 
 export default () => {
   const [ formData, setFormData ] = useState<Project>({} as Project);
   const [ viewOptions, setViewOptions ] = useState<any>([]);
+  const { id } = useRouter().params;
+
+  const init = async () => {
+    const options = await viewService.list({});
+    if (options.success) {
+      setViewOptions(options.data.map((d: any) => ({
+        key: d._id,
+        value: d.name,
+      })));
+    }
+    if (id) {
+      const detail = await service.detail(id);
+      if (detail.success) {
+        setFormData(detail.data);
+      }
+    }
+  }
 
   useEffect(() => {
-    viewService.list({}).then(res => {
-      if (res.success) {
-        setViewOptions(res.data.map((d: any) => ({
-          key: d._id,
-          value: d.name,
-        })));
-      }
-    })
+    init();
   }, []);
   
-  const submit = () => {
-    service.create(formData).then((res: any) => {
-      if (res.success) {
-        Taro.redirectTo({
-          url: '/pages/projects'
-        });
-      }
-    })
+  const submit = async () => {
+    let res;
+    if (id) {
+      res = await service.update(id, formData);
+    } else {
+      res = await service.create(formData);
+    }
+    if (res.success) {
+      Taro.redirectTo({
+        url: '/pages/projects'
+      });
+    }
   }
 
   const handleChange = (key: string, value: any) => {
@@ -47,7 +60,7 @@ export default () => {
         fixed
         onClickRgIconSt={() => console.log('预留按钮')}
         onClickLeftIcon={() => Taro.redirectTo({url: '/pages/projects'})}
-        title={config.navigationBarTitleText}
+        title={id ? '编辑项目' : '创建项目'}
         leftText="返回"
         leftIconType="chevron-left"
         rightFirstIconType="bullet-list"
@@ -84,7 +97,7 @@ export default () => {
               placeholder: '请输入视图路径'
             },
           ]}
-          value={formData.subsets}
+          value={formData.subsets || []}
           onChange={(value: any) => handleChange('subsets', value)}
         />
 

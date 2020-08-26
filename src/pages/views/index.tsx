@@ -15,6 +15,15 @@ export default () => {
 
   const swipeOption = useMemo(() => [
     {
+      key: 'edit',
+      text: '',
+      style: {
+        backgroundColor: '#6190E8',
+      },
+      className: 'at-icon at-icon-edit'
+    },
+    {
+      key: 'remove',
       text: '',
       style: {
         backgroundColor: '#FF4949',
@@ -41,9 +50,9 @@ export default () => {
     getList();
   }, []);
   
-  const toAdd = () => {
+  const toOptimset = (id?: string) => {
     Taro.redirectTo({
-      url: '/pages/views/create'
+      url: `/pages/views/optimset?id=${id || ''}`
     });
   };
 
@@ -53,12 +62,16 @@ export default () => {
     });
   };
 
-  const handleRemove = (_id: string) => {
-    service.remove(_id).then(res => {
-      if (res.success) {
-        getList();
-      }
-    });
+  const handleAction = (option: any, _id: string) => {
+    if (option.key === 'edit') {
+      toOptimset(_id);
+    } else if (option.key === 'remove') {
+      service.remove(_id).then(res => {
+        if (res.success) {
+          getList();
+        }
+      });
+    }
   }
 
   return (
@@ -82,7 +95,7 @@ export default () => {
             autoClose
             key={item._id}
             options={swipeOption}
-            onClick={() => handleRemove(item._id)}
+            onClick={(option: any) => handleAction(option, item._id)}
           >
             <AtListItem
               title={item.name}
@@ -95,7 +108,7 @@ export default () => {
         ))}
       </AtList>
 
-      <AtFab className="fab-btn" onClick={toAdd}>
+      <AtFab className="fab-btn" onClick={() => toOptimset()}>
         <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
     </View>
