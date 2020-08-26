@@ -40,9 +40,7 @@ export default () => {
       res = await service.create(formData);
     }
     if (res.success) {
-      Taro.redirectTo({
-        url: '/pages/views'
-      });
+      Taro.navigateBack();
     }
   }
 
@@ -58,14 +56,14 @@ export default () => {
       <AtNavBar
         fixed
         onClickRgIconSt={() => console.log('预留按钮')}
-        onClickLeftIcon={() => Taro.redirectTo({url: '/pages/views'})}
+        onClickLeftIcon={() => Taro.navigateBack()}
         title={id ? '编辑视图' : '创建视图'}
         leftText="返回"
         leftIconType="chevron-left"
         rightFirstIconType="bullet-list"
       />
 
-      <AtForm onSubmit={submit}>
+      <AtForm>
         <AtInput 
           name="name" 
           title="名称" 
@@ -95,7 +93,7 @@ export default () => {
           onChange={(value: any) => handleChange('subsets', value)}
         />
 
-        <AtButton full formType="submit" type="primary">提交</AtButton>
+        <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>
     </View>
   )

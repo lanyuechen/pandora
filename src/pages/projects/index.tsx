@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar, AtSearchBar } from 'taro-ui';
-import Taro from '@tarojs/taro';
+import Taro, { useDidShow } from '@tarojs/taro';
 
 import * as service from '@/services/project';
 import { Project } from './data';
@@ -47,19 +47,23 @@ export default () => {
     });
   }
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   getList();
+  // }, []);
+
+  useDidShow(() => {
     getList();
-  }, []);
+  });
   
   const toOptimset = (id?: string) => {
-    Taro.redirectTo({
-      url: `/pages/projects/optimset?id=${id || ''}`
+    Taro.navigateTo({
+      url: `/pages/projects/optimset/index?id=${id || ''}`
     });
   };
 
   const toDetail = (id: string) => {
-    Taro.redirectTo({
-      url: `/pages/projects/detail?id=${id}`
+    Taro.navigateTo({
+      url: `/pages/projects/detail/index?id=${id}`
     });
   };
 
@@ -90,24 +94,30 @@ export default () => {
         onActionClick={getList}
       />
 
-      <AtList>
-        {list.map(item => (
-          <AtSwipeAction
-            autoClose
-            key={item._id}
-            options={swipeOption}
-            onClick={(option: any) => handleAction(option, item._id)}
-          >
-            <AtListItem
-              title={item.name}
-              note={item.desc}
-              arrow="right"
-              iconInfo={{ size: 25, color: '#78A4FA', value: 'bookmark' }}
-              onClick={() => toDetail(item._id)}
-            />
-          </AtSwipeAction>
-        ))}
-      </AtList>
+      {list.length === 0 && (
+        <View>暂无数据</View>
+      )}
+
+      {list.length > 0 && (
+        <AtList>
+          {list.map(item => (
+            <AtSwipeAction
+              autoClose
+              key={item._id}
+              options={swipeOption}
+              onClick={(option: any) => handleAction(option, item._id)}
+            >
+              <AtListItem
+                title={item.name}
+                note={item.desc}
+                arrow="right"
+                iconInfo={{ size: 25, color: '#78A4FA', value: 'bookmark' }}
+                onClick={() => toDetail(item._id)}
+              />
+            </AtSwipeAction>
+          ))}
+        </AtList>
+      )}
 
       <AtFab className="fab-btn" onClick={() => toOptimset()}>
         <Text className="at-fab__icon at-icon at-icon-add" />

@@ -42,8 +42,8 @@ export default () => {
   }, []);
   
   const toAdd = () => {
-    Taro.redirectTo({
-      url: '/pages/components/create'
+    Taro.navigateTo({
+      url: '/pages/components/create/index'
     });
   };
 

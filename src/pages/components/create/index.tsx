@@ -13,9 +13,7 @@ export default () => {
   const submit = () => {
     service.create(formData).then((res: any) => {
       if (res.success) {
-        Taro.redirectTo({
-          url: '/pages/components'
-        });
+        Taro.navigateBack();
       }
     })
   }
@@ -32,14 +30,14 @@ export default () => {
       <AtNavBar
         fixed
         onClickRgIconSt={() => console.log('预留按钮')}
-        onClickLeftIcon={() => Taro.redirectTo({url: '/pages/components'})}
+        onClickLeftIcon={() => Taro.navigateBack()}
         title={config.navigationBarTitleText}
         leftText="返回"
         leftIconType="chevron-left"
         rightFirstIconType="bullet-list"
       />
 
-      <AtForm onSubmit={submit}>
+      <AtForm>
         <AtInput 
           name="name" 
           title="名称" 
@@ -54,7 +52,7 @@ export default () => {
           placeholder="请输入组件简介"
           onChange={(value) => handleChange('desc', value)}
         />
-        <AtButton full formType="submit" type="primary">提交</AtButton>
+        <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>
     </View>
   )

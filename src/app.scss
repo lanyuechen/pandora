@@ -1,6 +1,6 @@
 @import '~taro-ui/dist/style/index.scss';
 
-.main-container {
+page {
   position: absolute; 
   width: 100%;
   top: 95px;
@@ -12,7 +12,7 @@
 .fab-btn {
   position: fixed;
   right: 32px;
-  bottom: 160px;
+  bottom: 32px;
   z-index: 10;
 }
 

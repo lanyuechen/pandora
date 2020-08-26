@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar, AtSearchBar } from 'taro-ui';
-import Taro from '@tarojs/taro';
+import Taro, { useDidShow } from '@tarojs/taro';
 
 import * as service from '@/services/view';
 
@@ -49,16 +49,20 @@ export default () => {
   useEffect(() => {
     getList();
   }, []);
+
+  useDidShow(() => {
+    getList();
+  });
   
   const toOptimset = (id?: string) => {
-    Taro.redirectTo({
-      url: `/pages/views/optimset?id=${id || ''}`
+    Taro.navigateTo({
+      url: `/pages/views/optimset/index?id=${id || ''}`
     });
   };
 
   const toDetail = (id: string) => {
-    Taro.redirectTo({
-      url: `/pages/views/detail?id=${id}`
+    Taro.navigateTo({
+      url: `/pages/views/detail/index?id=${id}`
     });
   };
 

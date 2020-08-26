@@ -28,20 +28,21 @@ export default () => {
     if (!res.success) {
       return;
     }
-    const ids = res.data.subsets.map(d => d.cid); // todo 可能有重复，但是$in操作影响不大
-    const subsets = await componentService.list({_id: { $in: ids }});
-    if (!subsets.success) {
+    const subsets = res.data.subsets || [];
+    const ids = subsets.map(d => d.cid); // todo 可能有重复，但是$in操作影响不大
+    const subs = await componentService.list({_id: { $in: ids }});
+    if (!subs.success) {
       return;
     }
-    const subsetMap = subsets.data.reduce((p: any, n: any) => {
+    const dMap = subs.data.reduce((p: any, n: any) => {
       p[n._id] = n;
       return p;
     }, {});
     setDetail({
       ...res.data,
-      subsets: res.data.subsets.map(d => ({
+      subsets: subsets.map(d => ({
         ...d,
-        meta: subsetMap[d.cid],
+        meta: dMap[d.cid],
       })),
     });
   }
@@ -67,7 +68,7 @@ export default () => {
       <AtNavBar
         fixed
         onClickRgIconSt={() => console.log('预留按钮')}
-        onClickLeftIcon={() => Taro.redirectTo({url: '/pages/projects'})}
+        onClickLeftIcon={() => Taro.navigateBack()}
         title={detail.name}
         leftText="返回"
         leftIconType="chevron-left"
