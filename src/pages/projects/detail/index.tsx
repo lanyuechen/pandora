@@ -28,7 +28,7 @@ export default () => {
     if (!res.success) {
       return;
     }
-    const ids = res.data.views.map(d => d.id);
+    const ids = res.data.views.map(d => d.vid); // todo 可能有重复，但是$in操作影响不大
     const views = await viewService.list({_id: { $in: ids }});
     if (!views.success) {
       return;
@@ -41,7 +41,7 @@ export default () => {
       ...res.data,
       views: res.data.views.map(d => ({
         ...d,
-        meta: viewMap[d.id],
+        meta: viewMap[d.vid],
       })),
     });
   }
@@ -50,8 +50,8 @@ export default () => {
     getDetail();
   }, []);
   
-  const handleRemove = (vid: string) => {
-    service.removeViews(id, vid).then(res => {
+  const handleRemove = (path: string) => {
+    service.removeViews(id, path).then(res => {
       if (res.success) {
         getDetail();
       }
@@ -92,9 +92,9 @@ export default () => {
         {detail.views.map((item: any) => (
           <AtSwipeAction
             autoClose
-            key={item.id}
+            key={item.path}
             options={swipeOption}
-            onClick={() => handleRemove(item.id)}
+            onClick={() => handleRemove(item.path)}
           >
             <AtListItem
               title={item.meta ? item.meta.name : '该视图已被删除，请移除该配置项。'}
@@ -106,8 +106,8 @@ export default () => {
         ))}
       </AtList>
 
-      <AtFab className="fab-btn-add">
-        <Text className="at-fab__icon at-icon at-icon-add" />
+      <AtFab className="fab-btn">
+        <Text className="at-fab__icon at-icon at-icon-edit" />
       </AtFab>
     </View>
   )

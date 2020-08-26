@@ -88,7 +88,7 @@ export default () => {
         ))}
       </AtList>
 
-      <AtFab className="fab-btn-add" onClick={toAdd}>
+      <AtFab className="fab-btn" onClick={toAdd}>
         <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
     </View>

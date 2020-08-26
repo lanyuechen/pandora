@@ -1,6 +1,6 @@
 export interface ViewConfig {
-  id: string;     // 视图id
-  path: string;   // 视图路径
+  path: string;   // 视图路径(唯一索引)
+  vid: string;    // 视图id
 }
 
 export interface Config {

@@ -73,7 +73,7 @@ export default () => {
           config={[
             {
               type: 'select',
-              key: 'id',
+              key: 'vid',
               title: '选择视图',
               placeholder: '请选择视图',
               options: viewOptions,

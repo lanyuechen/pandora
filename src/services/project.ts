@@ -47,10 +47,10 @@ export async function remove(id: string) {
   };
 }
 
-export async function removeViews(id: string, vid: string) {
+export async function removeViews(id: string, path: string) {
   DB.table('project').update({_id: id}, (d: any) => ({
     ...d,
-    views: d.views.filter((v: any) => v.id !== vid),
+    views: d.views.filter((v: any) => v.path !== path),
   }));
   return {
     success: true
