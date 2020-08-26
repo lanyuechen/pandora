@@ -28,7 +28,7 @@ export default () => {
     if (!res.success) {
       return;
     }
-    const ids = res.data.views.map(d => d.vid); // todo 可能有重复，但是$in操作影响不大
+    const ids = res.data.subsets.map(d => d.cid); // todo 可能有重复，但是$in操作影响不大
     const views = await viewService.list({_id: { $in: ids }});
     if (!views.success) {
       return;
@@ -39,9 +39,9 @@ export default () => {
     }, {});
     setDetail({
       ...res.data,
-      views: res.data.views.map(d => ({
+      subsets: res.data.subsets.map(d => ({
         ...d,
-        meta: viewMap[d.vid],
+        meta: viewMap[d.cid],
       })),
     });
   }
@@ -50,8 +50,8 @@ export default () => {
     getDetail();
   }, []);
   
-  const handleRemove = (path: string) => {
-    service.removeViews(id, path).then(res => {
+  const handleRemove = (idx: number) => {
+    service.removeViews(id, idx).then(res => {
       if (res.success) {
         getDetail();
       }
@@ -89,12 +89,12 @@ export default () => {
       </View>
 
       <AtList>
-        {detail.views.map((item: any) => (
+        {detail.subsets.map((item: any, i: number) => (
           <AtSwipeAction
             autoClose
-            key={item.path}
+            key={i}
             options={swipeOption}
-            onClick={() => handleRemove(item.path)}
+            onClick={() => handleRemove(i)}
           >
             <AtListItem
               title={item.meta ? item.meta.name : '该视图已被删除，请移除该配置项。'}

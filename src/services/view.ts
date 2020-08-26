@@ -1,5 +1,5 @@
 import DB from '@/utils/db';
-import { View, CreateParams, ComponentConfig } from '@/pages/views/data';
+import { View, CreateParams, SubsetConfig } from '@/pages/views/data';
 
 export async function list(spec: any) {
   const res: View[] = DB.table('view').find(spec);
@@ -47,10 +47,10 @@ export async function remove(id: string) {
   };
 }
 
-export async function removeComponents(id: string, idx: number) {
+export async function removeSubset(id: string, idx: number) {
   DB.table('view').update({_id: id}, (d: any) => ({
     ...d,
-    components: d.components.filter((_: ComponentConfig, i: number) => i !== idx),
+    subsets: d.subsets.filter((_: SubsetConfig, i: number) => i !== idx),
   }));
   return {
     success: true

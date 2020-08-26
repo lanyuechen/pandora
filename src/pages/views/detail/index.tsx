@@ -28,20 +28,20 @@ export default () => {
     if (!res.success) {
       return;
     }
-    const ids = res.data.components.map(d => d.cid); // todo 可能有重复，但是$in操作影响不大
-    const components = await componentService.list({_id: { $in: ids }});
-    if (!components.success) {
+    const ids = res.data.subsets.map(d => d.cid); // todo 可能有重复，但是$in操作影响不大
+    const subsets = await componentService.list({_id: { $in: ids }});
+    if (!subsets.success) {
       return;
     }
-    const componentMap = components.data.reduce((p: any, n: any) => {
+    const subsetMap = subsets.data.reduce((p: any, n: any) => {
       p[n._id] = n;
       return p;
     }, {});
     setDetail({
       ...res.data,
-      components: res.data.components.map(d => ({
+      subsets: res.data.subsets.map(d => ({
         ...d,
-        meta: componentMap[d.cid],
+        meta: subsetMap[d.cid],
       })),
     });
   }
@@ -51,7 +51,7 @@ export default () => {
   }, []);
   
   const handleRemove = (idx: number) => {
-    service.removeComponents(id, idx).then(res => {
+    service.removeSubset(id, idx).then(res => {
       if (res.success) {
         getDetail();
       }
@@ -89,7 +89,7 @@ export default () => {
       </View>
 
       <AtList>
-        {detail.components.map((item: any, i: number) => (
+        {detail.subsets.map((item: any, i: number) => (
           <AtSwipeAction
             autoClose
             key={i}

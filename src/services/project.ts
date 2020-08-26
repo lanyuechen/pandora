@@ -1,5 +1,5 @@
 import DB from '@/utils/db';
-import { Project, CreateParams } from '@/pages/projects/data';
+import { Project, CreateParams, SubsetConfig } from '@/pages/projects/data';
 
 export async function list(spec: any) {
   const res: Project[] = DB.table('project').find(spec);
@@ -47,10 +47,10 @@ export async function remove(id: string) {
   };
 }
 
-export async function removeViews(id: string, path: string) {
+export async function removeViews(id: string, idx: number) {
   DB.table('project').update({_id: id}, (d: any) => ({
     ...d,
-    views: d.views.filter((v: any) => v.path !== path),
+    subsets: d.subsets.filter((_: SubsetConfig, i: number) => i !== idx),
   }));
   return {
     success: true

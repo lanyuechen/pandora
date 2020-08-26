@@ -73,7 +73,7 @@ export default () => {
           config={[
             {
               type: 'select',
-              key: 'vid',
+              key: 'cid',
               title: '选择视图',
               placeholder: '请选择视图',
               options: viewOptions,
@@ -84,8 +84,8 @@ export default () => {
               placeholder: '请输入视图路径'
             },
           ]}
-          value={formData.views}
-          onChange={(value: any) => handleChange('views', value)}
+          value={formData.subsets}
+          onChange={(value: any) => handleChange('subsets', value)}
         />
 
         <AtButton full formType="submit" type="primary">提交</AtButton>

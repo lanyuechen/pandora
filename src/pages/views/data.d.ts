@@ -1,4 +1,4 @@
-export interface ComponentConfig {
+export interface SubsetConfig {
   cid: string;    // 组件id
 }
 
@@ -10,7 +10,7 @@ export interface CreateParams {
   name: string;                     // 视图名
   desc: string;                     // 视图简介
   config: Config;                   // 视图配置
-  components: ComponentConfig[];    // 视图配置列表
+  subsets: SubsetConfig[];          // 子集(组件)配置列表
 }
 
 export interface View extends CreateParams {

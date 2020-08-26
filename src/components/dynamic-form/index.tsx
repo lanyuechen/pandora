@@ -35,20 +35,20 @@ export default (props: PropType) => {
             {config.map((c, j: number) => {
               if (c.type === 'select') {
                 const options = c.options || [];
-                const vIdx = d[c.key] ? options.findIndex(o => o.key === d[c.key]) : 0;
+                const idx = d[c.key] ? options.findIndex(o => o.key === d[c.key]) : 0;
                 return (
                   <Picker
                     key={j}
                     mode="selector"
                     range={options}
-                    value={vIdx}
+                    value={idx}
                     rangeKey="value"
                     onChange={(e) => handleChange(i, c.key, options[e.detail.value as number].key)}
                   >
                     <AtList>
                       <AtListItem
                         title={c.title}
-                        extraText={d[c.key] ? options[vIdx].value : ''}
+                        extraText={d[c.key] ? options[idx].value : ''}
                       />
                     </AtList>
                   </Picker>

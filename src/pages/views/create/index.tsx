@@ -78,8 +78,8 @@ export default () => {
               options: componentOptions,
             },
           ]}
-          value={formData.components}
-          onChange={(value: any) => handleChange('components', value)}
+          value={formData.subsets}
+          onChange={(value: any) => handleChange('subsets', value)}
         />
 
         <AtButton full formType="submit" type="primary">提交</AtButton>
