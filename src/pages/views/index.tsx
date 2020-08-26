@@ -47,6 +47,12 @@ export default () => {
     });
   };
 
+  const toDetail = (id: string) => {
+    Taro.redirectTo({
+      url: `/pages/views/detail?id=${id}`
+    });
+  };
+
   const handleRemove = (_id: string) => {
     service.remove(_id).then(res => {
       if (res.success) {
@@ -83,6 +89,7 @@ export default () => {
               note={item.desc}
               arrow="right"
               iconInfo={{ size: 25, color: '#78A4FA', value: 'iphone' }}
+              onClick={() => toDetail(item._id)}
             />
           </AtSwipeAction>
         ))}

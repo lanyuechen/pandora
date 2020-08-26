@@ -11,7 +11,7 @@ import { Project } from '../data.d';
 
 export default () => {
   const [ formData, setFormData ] = useState<Project>({} as Project);
-  const [ viewOptions, setViewOptions ] = useState([]);
+  const [ viewOptions, setViewOptions ] = useState<any>([]);
 
   useEffect(() => {
     viewService.list({}).then(res => {
