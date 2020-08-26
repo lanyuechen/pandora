@@ -3,7 +3,7 @@ export interface SubsetConfig {
 }
 
 export interface Config {
-  [foo: string]: string;
+  layout: string;   // 组件布局类型
 }
 
 export interface CreateParams {
