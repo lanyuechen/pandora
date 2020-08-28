@@ -11,11 +11,11 @@ export default {
     'pages/components/index',           // 组件列表
     'pages/components/optimset/index',  // 组件列表-创建或修改组件（根据是否包含 ?id=组件id 决定是创建还是修改）
     'pages/components/detail/index',    // 组件列表-组件详情 ?id=组件id
-    
+
     'pages/profile/index',              // 个人页
   ],
   tabBar: {
-    custom: false,
+    custom: true,
     color: '#bbc0ca',
     selectedColor: '1f83e1',
     backgroundColor: '#feffff',
