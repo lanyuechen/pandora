@@ -1,27 +1,16 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from '@tarojs/components';
-import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar } from 'taro-ui';
+import { AtFab, AtList, AtListItem, AtNavBar } from 'taro-ui';
 import Taro, { useRouter } from '@tarojs/taro';
 
 import { Project } from '@/pages/projects/data';
 import * as service from '@/services/project';
 import * as viewService from '@/services/view';
-
-import './index.scss';
+import SwipeAction from '@/components/swipe-action';
 
 export default () => {
   const [ detail, setDetail ] = useState<Project>();
   const { id } = useRouter().params;
-
-  const swipeOption = useMemo(() => [
-    {
-      text: '',
-      style: {
-        backgroundColor: '#FF4949',
-      },
-      className: 'at-icon at-icon-trash'
-    }
-  ], [])
 
   const getDetail = async () => {
     const res = await service.detail(id);
@@ -91,11 +80,10 @@ export default () => {
 
       <AtList>
         {detail.subsets.map((item: any, i: number) => (
-          <AtSwipeAction
-            autoClose
+          <SwipeAction
             key={i}
-            options={swipeOption}
-            onClick={() => handleRemove(i)}
+            actions={['remove']}
+            onRemoveClick={() => handleRemove(i)}
           >
             <AtListItem
               title={item.meta ? item.meta.name : '该视图已被删除，请移除该配置项。'}
@@ -103,7 +91,7 @@ export default () => {
               arrow="right"
               iconInfo={{ size: 25, color: '#78A4FA', value: 'iphone' }}
             />
-          </AtSwipeAction>
+          </SwipeAction>
         ))}
       </AtList>
 

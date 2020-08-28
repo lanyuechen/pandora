@@ -3,20 +3,20 @@ import { View } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import { AtForm, AtInput, AtButton, AtNavBar } from 'taro-ui';
 import * as service from '@/services/project';
-import * as viewService from '@/services/view';
+import * as subService from '@/services/view';
 import DynamicForm from '@/components/dynamic-form';
 
 import { Project } from '../data.d';
 
 export default () => {
   const [ formData, setFormData ] = useState<Project>({} as Project);
-  const [ viewOptions, setViewOptions ] = useState<any>([]);
+  const [ pickerOptions, setPickerOptions ] = useState<any>([]);
   const { id } = useRouter().params;
 
   const init = async () => {
-    const options = await viewService.list({});
+    const options = await subService.list({});
     if (options.success) {
-      setViewOptions(options.data.map((d: any) => ({
+      setPickerOptions(options.data.map((d: any) => ({
         key: d._id,
         value: d.name,
       })));
@@ -56,12 +56,10 @@ export default () => {
     <View>
       <AtNavBar
         fixed
-        onClickRgIconSt={() => console.log('预留按钮')}
         onClickLeftIcon={() => Taro.navigateBack()}
         title={id ? '编辑项目' : '创建项目'}
         leftText="返回"
         leftIconType="chevron-left"
-        rightFirstIconType="bullet-list"
       />
 
       <AtForm>
@@ -87,7 +85,7 @@ export default () => {
               key: 'cid',
               title: '选择视图',
               placeholder: '请选择视图',
-              options: viewOptions,
+              options: pickerOptions,
             },
             {
               key: 'path',
