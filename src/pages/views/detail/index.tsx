@@ -55,12 +55,10 @@ export default () => {
     <View>
       <AtNavBar
         fixed
-        onClickRgIconSt={() => console.log('预留按钮')}
         onClickLeftIcon={() => Taro.navigateBack()}
         title={detail.name}
         leftText="返回"
         leftIconType="chevron-left"
-        rightFirstIconType="bullet-list"
       />
 
       <View className="at-article" style={{marginBottom: '15px'}}>

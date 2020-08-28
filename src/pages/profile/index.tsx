@@ -10,9 +10,7 @@ export default () => {
     <View>
       <AtNavBar
         fixed
-        onClickRgIconSt={() => console.log('预留按钮')}
         title={config.navigationBarTitleText}
-        rightFirstIconType="bullet-list"
       />
     </View>
   )
