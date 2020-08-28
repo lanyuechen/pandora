@@ -1,27 +1,15 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from '@tarojs/components';
-import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar } from 'taro-ui';
+import { AtFab, AtList, AtListItem, AtNavBar } from 'taro-ui';
 import Taro, { useRouter } from '@tarojs/taro';
-
-import { View as ViewItem } from '@/pages/views/data';
 import * as service from '@/services/view';
-import * as componentService from '@/services/component';
-
-import './index.scss';
+import * as subService from '@/services/component';
+import SwipeAction from '@/components/swipe-action';
+import { View as ViewItem } from '../data';
 
 export default () => {
   const [ detail, setDetail ] = useState<ViewItem>();
   const { id } = useRouter().params;
-
-  const swipeOption = useMemo(() => [
-    {
-      text: '',
-      style: {
-        backgroundColor: '#FF4949',
-      },
-      className: 'at-icon at-icon-trash'
-    }
-  ], [])
 
   const getDetail = async () => {
     const res = await service.detail(id);
@@ -30,7 +18,7 @@ export default () => {
     }
     const subsets = res.data.subsets || [];
     const ids = subsets.map(d => d.cid); // todo 可能有重复，但是$in操作影响不大
-    const subs = await componentService.list({_id: { $in: ids }});
+    const subs = await subService.list({_id: { $in: ids }});
     if (!subs.success) {
       return;
     }
@@ -91,19 +79,18 @@ export default () => {
 
       <AtList>
         {detail.subsets.map((item: any, i: number) => (
-          <AtSwipeAction
-            autoClose
+          <SwipeAction
             key={i}
-            options={swipeOption}
-            onClick={() => handleRemove(i)}
+            actions={['remove']}
+            onRemoveClick={() => handleRemove(i)}
           >
             <AtListItem
               title={item.meta ? item.meta.name : '该组件已被删除，请移除该配置项。'}
-              note="没有描述信息"
+              note={item.path}
               arrow="right"
               iconInfo={{ size: 25, color: '#78A4FA', value: 'money' }}
             />
-          </AtSwipeAction>
+          </SwipeAction>
         ))}
       </AtList>
 

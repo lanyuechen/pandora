@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { View, Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem, AtNavBar } from 'taro-ui';
 import Taro, { useRouter } from '@tarojs/taro';
-
-import { Project } from '@/pages/projects/data';
 import * as service from '@/services/project';
-import * as viewService from '@/services/view';
+import * as subService from '@/services/view';
 import SwipeAction from '@/components/swipe-action';
+import { Project } from '../data';
 
 export default () => {
   const [ detail, setDetail ] = useState<Project>();
@@ -19,7 +18,7 @@ export default () => {
     }
     const subsets = res.data.subsets || [];
     const ids = subsets.map(d => d.cid); // todo 可能有重复，但是$in操作影响不大
-    const subs = await viewService.list({_id: { $in: ids }});
+    const subs = await subService.list({_id: { $in: ids }});
     if (!subs.success) {
       return;
     }
@@ -41,7 +40,7 @@ export default () => {
   }, []);
   
   const handleRemove = (idx: number) => {
-    service.removeViews(id, idx).then(res => {
+    service.removeSubset(id, idx).then(res => {
       if (res.success) {
         getDetail();
       }

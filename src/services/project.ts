@@ -47,7 +47,7 @@ export async function remove(id: string) {
   };
 }
 
-export async function removeViews(id: string, idx: number) {
+export async function removeSubset(id: string, idx: number) {
   DB.table('project').update({_id: id}, (d: any) => ({
     ...d,
     subsets: d.subsets.filter((_: SubsetConfig, i: number) => i !== idx),

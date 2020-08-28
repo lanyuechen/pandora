@@ -3,19 +3,20 @@ import { View } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import { AtForm, AtInput, AtButton, AtNavBar } from 'taro-ui';
 import * as service from '@/services/view';
-import * as componentService from '@/services/component';
+import * as subService from '@/services/component';
 import DynamicForm from '@/components/dynamic-form';
+
 import { View as ViewItem } from '../data.d';
 
 export default () => {
   const [ formData, setFormData ] = useState<ViewItem>({} as ViewItem);
-  const [ componentOptions, setComponentOptions ] = useState<any>([]);
+  const [ pickerOptions, setPickerOptions ] = useState<any>([]);
   const { id } = useRouter().params;
 
   const init = async () => {
-    const options = await componentService.list({});
+    const options = await subService.list({});
     if (options.success) {
-      setComponentOptions(options.data.map((d: any) => ({
+      setPickerOptions(options.data.map((d: any) => ({
         key: d._id,
         value: d.name,
       })));
@@ -31,7 +32,7 @@ export default () => {
   useEffect(() => {
     init();
   }, []);
-
+  
   const submit = async () => {
     let res;
     if (id) {
@@ -55,12 +56,10 @@ export default () => {
     <View>
       <AtNavBar
         fixed
-        onClickRgIconSt={() => console.log('预留按钮')}
         onClickLeftIcon={() => Taro.navigateBack()}
-        title={id ? '编辑视图' : '创建视图'}
+        title={id ? '编辑项目' : '创建项目'}
         leftText="返回"
         leftIconType="chevron-left"
-        rightFirstIconType="bullet-list"
       />
 
       <AtForm>
@@ -68,17 +67,17 @@ export default () => {
           name="name" 
           title="名称" 
           value={formData.name}
-          placeholder="请输入视图名称" 
+          placeholder="请输入项目名称" 
           onChange={(value) => handleChange('name', value)} 
         />
         <AtInput
           name="desc"
           title="简介"
           value={formData.desc}
-          placeholder="请输入视图简介"
+          placeholder="请输入项目简介"
           onChange={(value) => handleChange('desc', value)}
         />
-
+        
         <DynamicForm
           config={[
             {
@@ -86,8 +85,8 @@ export default () => {
               key: 'cid',
               title: '选择组件',
               placeholder: '请选择组件',
-              options: componentOptions,
-            },
+              options: pickerOptions,
+            }
           ]}
           value={formData.subsets || []}
           onChange={(value: any) => handleChange('subsets', value)}

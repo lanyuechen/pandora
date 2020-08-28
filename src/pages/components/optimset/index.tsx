@@ -1,21 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from '@tarojs/components';
-import Taro from '@tarojs/taro';
+import Taro, { useRouter } from '@tarojs/taro';
 import { AtForm, AtInput, AtButton, AtNavBar } from 'taro-ui';
 import * as service from '@/services/component';
-import config from './index.config';
 
 import { Component } from '../data.d';
 
 export default () => {
   const [ formData, setFormData ] = useState<Component>({} as Component);
-  
-  const submit = () => {
-    service.create(formData).then((res: any) => {
-      if (res.success) {
-        Taro.navigateBack();
+  const { id } = useRouter().params;
+
+  const init = async () => {
+    if (id) {
+      const detail = await service.detail(id);
+      if (detail.success) {
+        setFormData(detail.data);
       }
-    })
+    }
+  }
+
+  useEffect(() => {
+    init();
+  }, []);
+  
+  const submit = async () => {
+    let res;
+    if (id) {
+      res = await service.update(id, formData);
+    } else {
+      res = await service.create(formData);
+    }
+    if (res.success) {
+      Taro.navigateBack();
+    }
   }
 
   const handleChange = (key: string, value: any) => {
@@ -29,12 +46,10 @@ export default () => {
     <View>
       <AtNavBar
         fixed
-        onClickRgIconSt={() => console.log('预留按钮')}
         onClickLeftIcon={() => Taro.navigateBack()}
-        title={config.navigationBarTitleText}
+        title={id ? '编辑组件' : '创建组件'}
         leftText="返回"
         leftIconType="chevron-left"
-        rightFirstIconType="bullet-list"
       />
 
       <AtForm>
@@ -52,6 +67,7 @@ export default () => {
           placeholder="请输入组件简介"
           onChange={(value) => handleChange('desc', value)}
         />
+        
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>
     </View>

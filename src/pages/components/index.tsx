@@ -1,27 +1,16 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { View, Text } from '@tarojs/components';
-import { AtFab, AtList, AtListItem, AtSwipeAction, AtNavBar, AtSearchBar } from 'taro-ui';
-import Taro from '@tarojs/taro';
-
+import { AtFab, AtList, AtListItem, AtNavBar, AtSearchBar } from 'taro-ui';
+import Taro, { useDidShow } from '@tarojs/taro';
 import * as service from '@/services/component';
+import SwipeAction from '@/components/swipe-action';
+import { Component } from './data';
 
 import config from './index.config';
 
-import './index.scss';
-
 export default () => {
-  const [ list, setList ] = useState([]);
+  const [ list, setList ] = useState<Component[]>([]);
   const [ keywords, setKeywords ] = useState('');
-
-  const swipeOption = useMemo(() => [
-    {
-      text: '',
-      style: {
-        backgroundColor: '#FF4949',
-      },
-      className: 'at-icon at-icon-trash'
-    }
-  ], [])
 
   const getList = () => {
     const spec = keywords ? {
@@ -37,13 +26,19 @@ export default () => {
     });
   }
 
-  useEffect(() => {
+  useDidShow(() => {
     getList();
-  }, []);
+  });
   
-  const toAdd = () => {
+  const toOptimset = (id?: string) => {
     Taro.navigateTo({
-      url: '/pages/components/create/index'
+      url: `/pages/components/optimset/index?id=${id || ''}`
+    });
+  };
+
+  const toDetail = (id: string) => {
+    Taro.navigateTo({
+      url: `/pages/components/detail/index?id=${id}`
     });
   };
 
@@ -59,9 +54,7 @@ export default () => {
     <View>
       <AtNavBar
         fixed
-        onClickRgIconSt={() => console.log('预留按钮')}
         title={config.navigationBarTitleText}
-        rightFirstIconType="bullet-list"
       />
 
       <AtSearchBar
@@ -70,25 +63,32 @@ export default () => {
         onActionClick={getList}
       />
 
-      <AtList>
-        {list.map((item: any) => (
-          <AtSwipeAction
-            autoClose
-            key={item._id}
-            options={swipeOption}
-            onClick={() => handleRemove(item._id)}
-          >
-            <AtListItem
-              title={item.name}
-              note={item.desc}
-              arrow="right"
-              iconInfo={{ size: 25, color: '#78A4FA', value: 'money' }}
-            />
-          </AtSwipeAction>
-        ))}
-      </AtList>
+      {list.length === 0 && (
+        <View>暂无数据</View>
+      )}
 
-      <AtFab className="fab-btn" onClick={toAdd}>
+      {list.length > 0 && (
+        <AtList>
+          {list.map(item => (
+            <SwipeAction
+              key={item._id}
+              actions={['edit', 'remove']}
+              onEditClick={() => toOptimset(item._id)}
+              onRemoveClick={() => handleRemove(item._id)}
+            >
+              <AtListItem
+                title={item.name}
+                note={item.desc}
+                arrow="right"
+                iconInfo={{ size: 25, color: '#78A4FA', value: 'bookmark' }}
+                onClick={() => toDetail(item._id)}
+              />
+            </SwipeAction>
+          ))}
+        </AtList>
+      )}
+
+      <AtFab className="fab-btn" onClick={() => toOptimset()}>
         <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
     </View>
