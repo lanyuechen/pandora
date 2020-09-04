@@ -4,7 +4,7 @@ import { AtTabBar } from 'taro-ui';
 
 import './index.scss';
 
-const T = () => {
+export default () => {
   const tabList = useMemo(() => [
     { title: '项目', iconType: 'bookmark', url: '/pages/projects/index'},
     { title: '视图', iconType: 'iphone', url: '/pages/views/index'},
@@ -26,11 +26,5 @@ const T = () => {
       onClick={handleClick}
       current={current}
     />
-  )
-}
-
-export default () => {
-  return (
-    <T />
   )
 }
