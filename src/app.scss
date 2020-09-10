@@ -1,3 +1,4 @@
+@import './custom-theme.scss';
 @import '~taro-ui/dist/style/index.scss';
 
 /* 列表页浮动创建按钮 */
@@ -18,11 +19,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: cyan;
+  background: #1cbbb4 linear-gradient(45deg, #0081ff, #1cbbb4);
   box-sizing: border-box;
   .at-nav-bar {
     background: transparent;
     position: absolute;
     bottom: 0;
+    .at-nav-bar__title {
+      color: #fff;
+    }
   }
 }

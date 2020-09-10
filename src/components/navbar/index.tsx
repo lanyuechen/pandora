@@ -20,6 +20,8 @@ export default (props: any) => {
     <View className="navbar" style={constainerStyle}>
       <AtNavBar 
         {...others}
+        border={false}
+        color="#fff"
       />
     </View>
   );
