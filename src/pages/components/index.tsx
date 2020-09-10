@@ -3,6 +3,7 @@ import { Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem, AtSearchBar } from 'taro-ui';
 import Taro, { useDidShow } from '@tarojs/taro';
 import * as service from '@/services/component';
+import CustomEvent from '@/utils/custom-event';
 
 import SwipeAction from '@/components/swipe-action';
 import Navbar from '@/components/navbar';
@@ -31,6 +32,7 @@ export default () => {
   }
 
   useDidShow(() => {
+    CustomEvent.emit('switch-tab', 2);
     getList();
   });
   

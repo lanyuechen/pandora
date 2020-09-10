@@ -2,7 +2,7 @@
 	"miniprogramRoot": ".dist",
 	"projectname": "pandora",
 	"description": "demo",
-	"appid": "touristappid",
+	"appid": "wxcd264ad93cfa9103",
 	"setting": {
 		"urlCheck": true,
 		"es6": false,
