@@ -13,11 +13,6 @@
   border-style: dashed;
 }
 
-/* 主容器，避开导航和tabbar */
-.main-container {
-  padding-top: 150px;
-}
-
 .navbar {
   position: fixed;
   top: 0;
@@ -27,6 +22,5 @@
   box-sizing: border-box;
   .at-nav-bar {
     background: transparent;
-    height: 43PX;
   }
 }
