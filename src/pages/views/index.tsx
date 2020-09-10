@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text } from '@tarojs/components';
+import { Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem, AtSearchBar } from 'taro-ui';
-import Navbar from '@/components/navbar';
-import Container from '@/components/container';
 import Taro, { useDidShow } from '@tarojs/taro';
 import * as service from '@/services/view';
+
 import SwipeAction from '@/components/swipe-action';
+import Navbar from '@/components/navbar';
+import Container from '@/components/container';
+import Empty from '@/components/empty';
+
 import { View as ViewItem } from './data';
 
 import config from './index.config';
@@ -64,9 +67,7 @@ export default () => {
         onActionClick={getList}
       />
 
-      {list.length === 0 && (
-        <View>暂无数据</View>
-      )}
+      {list.length === 0 && <Empty />}
 
       {list.length > 0 && (
         <AtList>

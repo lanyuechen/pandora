@@ -22,6 +22,7 @@ export default () => {
 
   return (
     <AtTabBar
+      className="tabbar"
       tabList={tabList}
       onClick={handleClick}
       current={current}

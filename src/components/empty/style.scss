@@ -1,0 +1,9 @@
+@import '@/custom-theme.scss';
+
+.empty {
+  text-align: center;
+  padding: 16PX;
+  .empty-info {
+    color: $gray;
+  }
+}
