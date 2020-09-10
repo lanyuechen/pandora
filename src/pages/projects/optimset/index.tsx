@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import { AtForm, AtInput, AtButton } from 'taro-ui';
 import Navbar from '@/components/navbar';
+import Container from '@/components/container';
 import * as service from '@/services/project';
 import * as subService from '@/services/view';
 import DynamicForm from '@/components/dynamic-form';
@@ -54,7 +54,7 @@ export default () => {
   }
 
   return (
-    <View className="main-container">
+    <Container>
       <Navbar
         onClickLeftIcon={() => Taro.navigateBack()}
         title={id ? '编辑项目' : '创建项目'}
@@ -99,6 +99,6 @@ export default () => {
 
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>
-    </View>
+    </Container>
   )
 }

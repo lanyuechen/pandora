@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem, AtSearchBar } from 'taro-ui';
 import Navbar from '@/components/navbar';
+import Container from '@/components/container';
 import Taro, { useDidShow } from '@tarojs/taro';
 import * as service from '@/services/view';
 import SwipeAction from '@/components/swipe-action';
@@ -52,7 +53,7 @@ export default () => {
   }
 
   return (
-    <View className="main-container">
+    <Container>
       <Navbar
         title={config.navigationBarTitleText}
       />
@@ -91,6 +92,6 @@ export default () => {
       <AtFab className="fab-btn" onClick={() => toOptimset()}>
         <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
-    </View>
+    </Container>
   )
 }

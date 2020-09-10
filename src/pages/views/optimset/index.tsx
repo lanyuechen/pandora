@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
 import { AtForm, AtInput, AtButton } from 'taro-ui';
+import Container from '@/components/container';
 import Navbar from '@/components/navbar';
 import * as service from '@/services/view';
 import * as subService from '@/services/component';
@@ -54,7 +54,7 @@ export default () => {
   }
 
   return (
-    <View className="main-container">
+    <Container>
       <Navbar
         onClickLeftIcon={() => Taro.navigateBack()}
         title={id ? '编辑项目' : '创建项目'}
@@ -94,6 +94,6 @@ export default () => {
 
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>
-    </View>
+    </Container>
   )
 }

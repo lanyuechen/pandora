@@ -52,7 +52,7 @@ export default () => {
   }
 
   return (
-    <View className="main-container">
+    <View style={{paddingTop: 1}}>
       <Navbar
         title={config.navigationBarTitleText}
       />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem } from 'taro-ui';
+import Container from '@/components/container';
 import Navbar from '@/components/navbar';
 import Taro, { useRouter } from '@tarojs/taro';
 import * as service from '@/services/view';
@@ -53,7 +54,7 @@ export default () => {
   }
 
   return (
-    <View className="main-container">
+    <Container>
       <Navbar
         onClickLeftIcon={() => Taro.navigateBack()}
         title={detail.name}
@@ -95,6 +96,6 @@ export default () => {
       <AtFab className="fab-btn">
         <Text className="at-fab__icon at-icon at-icon-edit" />
       </AtFab>
-    </View>
+    </Container>
   )
 }

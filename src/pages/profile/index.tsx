@@ -1,16 +1,16 @@
 import React from 'react';
-import { View } from '@tarojs/components';
 import Navbar from '@/components/navbar';
+import Container from '@/components/container';
 import config from './index.config';
 
 import './index.scss';
 
 export default () => {
   return (
-    <View className="main-container">
+    <Container>
       <Navbar
         title={config.navigationBarTitleText}
       />
-    </View>
+    </Container>
   )
 }
