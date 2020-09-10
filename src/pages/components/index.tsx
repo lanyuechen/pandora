@@ -5,6 +5,7 @@ import Taro, { useDidShow } from '@tarojs/taro';
 import * as service from '@/services/component';
 import SwipeAction from '@/components/swipe-action';
 import Navbar from '@/components/navbar';
+import Container from '@/components/container';
 import { Component } from './data';
 
 import config from './index.config';
@@ -52,7 +53,7 @@ export default () => {
   }
 
   return (
-    <View style={{paddingTop: 1}}>
+    <Container>
       <Navbar
         title={config.navigationBarTitleText}
       />
@@ -91,6 +92,6 @@ export default () => {
       <AtFab className="fab-btn" onClick={() => toOptimset()}>
         <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
-    </View>
+    </Container>
   )
 }

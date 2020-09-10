@@ -2,17 +2,17 @@ import React, { useMemo } from 'react';
 import Taro from '@tarojs/taro';
 import { AtNavBar } from 'taro-ui';
 import { View } from '@tarojs/components';
-import { NAVBAR_HEIGHT } from '@/constant';
+import { NAVBAR_HEIGHT_ANDROID, NAVBAR_HEIGHT_IOS } from '@/constant';
 
 export default (props: any) => {
   const { style = {}, ...others } = props;
   
   const constainerStyle = useMemo(() => {
     const info = Taro.getSystemInfoSync() || {};
+    const navbarHeight = info.platform === 'ios' ? NAVBAR_HEIGHT_IOS : NAVBAR_HEIGHT_ANDROID;
     return {
       ...style,
-      paddingTop: info.statusBarHeight,
-      height: info.statusBarHeight + NAVBAR_HEIGHT,
+      height: info.statusBarHeight + navbarHeight,
     };
   }, []);
 
