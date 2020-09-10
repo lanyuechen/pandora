@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text } from '@tarojs/components';
-import { AtFab, AtList, AtListItem, AtNavBar, AtSearchBar } from 'taro-ui';
+import { AtFab, AtList, AtListItem, AtSearchBar } from 'taro-ui';
+import Navbar from '@/components/navbar';
 import Taro, { useDidShow } from '@tarojs/taro';
 import * as service from '@/services/view';
 import SwipeAction from '@/components/swipe-action';
@@ -51,9 +52,8 @@ export default () => {
   }
 
   return (
-    <View>
-      <AtNavBar
-        fixed
+    <View className="main-container">
+      <Navbar
         title={config.navigationBarTitleText}
       />
 

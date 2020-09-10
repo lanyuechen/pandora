@@ -12,3 +12,20 @@
 .dashed {
   border-style: dashed;
 }
+
+/* 主容器，避开导航和tabbar */
+.main-container {
+  padding-top: 150px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: cyan;
+  box-sizing: border-box;
+  .at-nav-bar {
+    background: transparent;
+  }
+}

@@ -1,15 +1,14 @@
 import React from 'react';
 import { View } from '@tarojs/components';
-import { AtNavBar } from 'taro-ui';
+import Navbar from '@/components/navbar';
 import config from './index.config';
 
 import './index.scss';
 
 export default () => {
   return (
-    <View>
-      <AtNavBar
-        fixed
+    <View className="main-container">
+      <Navbar
         title={config.navigationBarTitleText}
       />
     </View>
