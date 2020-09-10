@@ -89,7 +89,7 @@ export default () => {
         </AtList>
       )}
 
-      <AtFab className="fab-btn" onClick={() => toOptimset()}>
+      <AtFab className="fab-btn bg-color-purple" onClick={() => toOptimset()}>
         <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
     </Container>
