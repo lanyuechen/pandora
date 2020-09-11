@@ -42,6 +42,7 @@
 		"@tarojs/runtime": "3.0.8",
 		"@tarojs/taro": "3.0.8",
 		"@types/lokijs": "^1.5.3",
+		"leancloud-storage": "^4.6.1",
 		"lodash": "4.17.15",
 		"lokijs": "^1.5.10",
 		"react": "^16.10.0",

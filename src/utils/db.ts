@@ -1,5 +1,6 @@
 import Loki, { Collection, LokiLocalStorageAdapter as Adapter } from 'lokijs';
-import { uuid } from './common';
+import LeanStorage from '@/utils/lean-storage';
+import { uuid } from '@/utils/common';
 
 const DB_NAME = 'pandora.db';
 const DB_INSTANCE = Symbol.for('db-instance-key');
@@ -23,7 +24,26 @@ class DB {
       // autoload: true,
       adapter: adapter,
     });
-    this.db.loadDatabase();
+    this.syncDown();
+  }
+
+  /**
+   * 从服务器向本地同步数据
+   */
+  syncDown() {
+    // this.db.loadDatabase();
+    LeanStorage.query().then((res: any) => {
+      this.db.loadJSON(res);
+    }).catch((err: any) => {
+      console.log('【error】', err);
+    });
+  }
+
+  /**
+   * 从本地向服务器同步数据
+   */
+  syncUp() {
+    LeanStorage.save(this.db.serialize())
   }
 
   table(name: string) {
@@ -42,17 +62,20 @@ class DB {
   insert(data: any) {
     const _id = uuid();
     this.collection.insert({...data, _id});
+    this.syncUp();
   }
 
   update(spec = {}, data: any) {
     this.collection.findAndUpdate(spec, (d: any) => {
       data = typeof data === 'function' ? data(d) : data;
       Object.assign(d, data);
+      this.syncUp();
     });
   }
 
   delete(spec = {}) {
     this.collection.findAndRemove(spec);
+    this.syncUp();
   }
 }
 
