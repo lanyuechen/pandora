@@ -57,7 +57,7 @@ export default () => {
     <Container>
       <Navbar
         onClickLeftIcon={() => Taro.navigateBack()}
-        title={id ? '编辑项目' : '创建项目'}
+        title={id ? '编辑视图' : '创建视图'}
         leftText="返回"
         leftIconType="chevron-left"
       />
@@ -67,14 +67,14 @@ export default () => {
           name="name" 
           title="名称" 
           value={formData.name}
-          placeholder="请输入项目名称" 
+          placeholder="请输入视图名称" 
           onChange={(value) => handleChange('name', value)} 
         />
         <AtInput
           name="desc"
           title="简介"
           value={formData.desc}
-          placeholder="请输入项目简介"
+          placeholder="请输入视图简介"
           onChange={(value) => handleChange('desc', value)}
         />
         

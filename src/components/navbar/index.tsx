@@ -7,7 +7,7 @@ import { NAVBAR_HEIGHT_DEFAULT } from '@/constant';
 export default (props: any) => {
   const { style = {}, ...others } = props;
   
-  const constainerStyle = useMemo(() => {
+  const containerStyle = useMemo(() => {
     const info = Taro.getSystemInfoSync() || {};
     const rect = Taro.getMenuButtonBoundingClientRect();
     return {
@@ -17,7 +17,7 @@ export default (props: any) => {
   }, []);
 
   return (
-    <View className="navbar" style={constainerStyle}>
+    <View className="navbar" style={containerStyle}>
       <AtNavBar 
         {...others}
         border={false}

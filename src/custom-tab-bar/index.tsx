@@ -7,10 +7,11 @@ import './index.scss';
 
 export default () => {
   useEffect(() => {
-    CustomEvent.onOnce('switch-tab', (idx: number) => {
-      setCurrent(idx);
-    })
-  });
+    CustomEvent.on('switch-tab', setCurrent);
+    return () => {
+      CustomEvent.off('switch-tab', setCurrent);
+    }
+  }, []);
 
   const tabList = useMemo(() => [
     { title: '项目', iconType: 'bookmark', url: '/pages/projects/index'},

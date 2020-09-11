@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '创建视图'
+  navigationBarTitleText: '创建或修改视图'
 }

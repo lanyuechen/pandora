@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '项目详情'
+  navigationBarTitleText: '视图详情'
 }
