@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Picker } from '@tarojs/components';
 import { AtButton, AtInput, AtList, AtListItem } from 'taro-ui';
+import SwipeAction from '@/components/swipe-action';
 
 import { PropType } from './data';
 
@@ -30,8 +31,12 @@ export default (props: PropType) => {
   return (
     <View>
       {value.map((d, i: number) => (
-        <View key={i} className="at-row">
-          <View className="at-col-11">
+        <SwipeAction
+          key={i}
+          actions={['remove']}
+          onRemoveClick={() => handleRemove(i)}
+        >
+          <View>
             {config.map((c, j: number) => {
               if (c.type === 'select') {
                 const options = c.options || [];
@@ -66,10 +71,7 @@ export default (props: PropType) => {
               );
             })}
           </View>
-          <View className="at-col-1">
-            <View className="at-icon at-icon-trash" onClick={() => handleRemove(i)} />
-          </View>
-        </View>
+        </SwipeAction>
       ))}
       <AtButton type="secondary" className="dashed" onClick={handleAdd}>
         <View className="at-icon at-icon-add" />
