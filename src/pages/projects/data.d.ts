@@ -1,6 +1,7 @@
 export interface SubsetConfig {
-  path: string;   // 视图路径(唯一)
   cid: string;    // 视图id
+  path: string;   // 访问路径
+  layout: 'auto' | 'flow' | 'grid';   // 布局方式
 }
 
 export interface Config {

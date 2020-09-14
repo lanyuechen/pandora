@@ -87,11 +87,6 @@ export default () => {
               placeholder: '请选择视图',
               options: pickerOptions,
             },
-            {
-              key: 'path',
-              title: '视图路径',
-              placeholder: '请输入视图路径'
-            },
           ]}
           value={formData.subsets || []}
           onChange={(value: any) => handleChange('subsets', value)}

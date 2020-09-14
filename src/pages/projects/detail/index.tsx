@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text } from '@tarojs/components';
 import { AtFab, AtList, AtListItem } from 'taro-ui';
 import Navbar from '@/components/navbar';
 import Container from '@/components/container';
-import Taro, { useRouter } from '@tarojs/taro';
+import Taro, { useRouter, useDidShow } from '@tarojs/taro';
 import * as service from '@/services/project';
 import * as subService from '@/services/view';
 import SwipeAction from '@/components/swipe-action';
@@ -37,9 +37,9 @@ export default () => {
     });
   }
 
-  useEffect(() => {
+  useDidShow(() => {
     getDetail();
-  }, []);
+  });
   
   const handleRemove = (idx: number) => {
     service.removeSubset(id, idx).then(res => {
@@ -49,9 +49,9 @@ export default () => {
     });
   }
 
-  const toOptimset = () => {
+  const toOptimset = (idx: number = -1) => { // idx = -1表示新增，idx > -1表示修改
     Taro.navigateTo({
-      url: `/pages/projects/optimset/index?id=${id}`
+      url: `/pages/projects/config/index?id=${id}&idx=${idx}`
     });
   };
 
@@ -86,7 +86,8 @@ export default () => {
         {detail.subsets.map((item: any, i: number) => (
           <SwipeAction
             key={i}
-            actions={['remove']}
+            actions={['edit', 'remove']}
+            onEditClick={() => toOptimset(i)}
             onRemoveClick={() => handleRemove(i)}
           >
             <AtListItem
@@ -99,8 +100,8 @@ export default () => {
         ))}
       </AtList>
 
-      <AtFab className="fab-btn" onClick={toOptimset}>
-        <Text className="at-fab__icon at-icon at-icon-edit" />
+      <AtFab className="fab-btn" onClick={() => toOptimset()}>
+        <Text className="at-fab__icon at-icon at-icon-add" />
       </AtFab>
     </Container>
   )
