@@ -32,6 +32,7 @@ $color-names: 'red', 'orange', 'yellow', 'olive', 'green', 'cyan', 'blue', 'purp
   width: 100%;
   background: #1cbbb4 linear-gradient(45deg, #0081ff, #1cbbb4);
   box-sizing: border-box;
+  z-index: 1000;
   .at-nav-bar {
     background: transparent;
     position: absolute;
