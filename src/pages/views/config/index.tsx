@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Taro, { useRouter } from '@tarojs/taro';
-import { AtForm, AtButton, AtList, AtListItem } from 'taro-ui';
-import { Picker } from '@tarojs/components';
+import { AtForm, AtButton } from 'taro-ui';
 import Navbar from '@/components/navbar';
 import Container from '@/components/container';
+import Picker from '@/components/picker';
 import * as service from '@/services/view';
 import * as subService from '@/services/component';
 
@@ -54,9 +54,6 @@ export default () => {
     });
   }
 
-  const pickedIdx = formData.cid ? pickerOptions.findIndex((d: any) => formData.cid === d.key) : 0;
-  const pickedName = formData.cid ? pickerOptions[pickedIdx].value : '';
-
   return (
     <Container>
       <Navbar
@@ -68,19 +65,11 @@ export default () => {
 
       <AtForm>
         <Picker
-          mode="selector"
-          range={pickerOptions}
-          value={pickedIdx}
-          rangeKey="value"
-          onChange={(e) => handleChange('cid', pickerOptions[e.detail.value as number].key)}
-        >
-          <AtList>
-            <AtListItem
-              title="选择组件"
-              extraText={pickedName}
-            />
-          </AtList>
-        </Picker>
+          title="选择组件"
+          options={pickerOptions}
+          value={formData.cid}
+          onChange={(val: string) => handleChange('cid', val)}
+        />
 
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Picker } from '@tarojs/components';
-import { AtButton, AtInput, AtList, AtListItem } from 'taro-ui';
+import { View } from '@tarojs/components';
+import { AtButton, AtInput } from 'taro-ui';
 import SwipeAction from '@/components/swipe-action';
+import Picker from '@/components/picker';
 
 import { PropType } from './data';
 
@@ -39,24 +40,14 @@ export default (props: PropType) => {
           <View>
             {config.map((c, j: number) => {
               if (c.type === 'select') {
-                const options = c.options || [];
-                const idx = d[c.key] ? options.findIndex(o => o.key === d[c.key]) : 0;
                 return (
                   <Picker
                     key={j}
-                    mode="selector"
-                    range={options}
-                    value={idx}
-                    rangeKey="value"
-                    onChange={(e) => handleChange(i, c.key, options[e.detail.value as number].key)}
-                  >
-                    <AtList>
-                      <AtListItem
-                        title={c.title}
-                        extraText={d[c.key] ? options[idx].value : ''}
-                      />
-                    </AtList>
-                  </Picker>
+                    title={c.title}
+                    options={c.options || []}
+                    value={d[c.key]}
+                    onChange={(val: string) => handleChange(i, c.key, val)}
+                  />
                 )
               }
               return (

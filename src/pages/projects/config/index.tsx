@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Taro, { useRouter } from '@tarojs/taro';
-import { AtForm, AtInput, AtButton, AtList, AtListItem } from 'taro-ui';
-import { Picker } from '@tarojs/components';
+import { AtForm, AtInput, AtButton } from 'taro-ui';
 import Navbar from '@/components/navbar';
 import Container from '@/components/container';
+import Picker from '@/components/picker';
 import * as service from '@/services/project';
 import * as subService from '@/services/view';
 
 import { SubsetConfig } from '../data.d';
+
+const layoutOptions = [
+  {key: 'auto', value: '自动布局'},
+  {key: 'flow', value: '流式布局'},
+  {key: 'grid', value: '网格布局'},
+]
 
 export default () => {
   const [ formData, setFormData ] = useState<SubsetConfig>({} as SubsetConfig);
@@ -54,9 +60,6 @@ export default () => {
     });
   }
 
-  const pickedIdx = formData.cid ? pickerOptions.findIndex((d: any) => formData.cid === d.key) : 0;
-  const pickedName = formData.cid ? pickerOptions[pickedIdx].value : '';
-
   return (
     <Container>
       <Navbar
@@ -68,19 +71,11 @@ export default () => {
 
       <AtForm>
         <Picker
-          mode="selector"
-          range={pickerOptions}
-          value={pickedIdx}
-          rangeKey="value"
-          onChange={(e) => handleChange('cid', pickerOptions[e.detail.value as number].key)}
-        >
-          <AtList>
-            <AtListItem
-              title="选择视图"
-              extraText={pickedName}
-            />
-          </AtList>
-        </Picker>
+          title="选择视图"
+          options={pickerOptions}
+          value={formData.cid}
+          onChange={(val: string) => handleChange('cid', val)}
+        />
 
         <AtInput 
           name="path" 
@@ -88,6 +83,13 @@ export default () => {
           value={formData.path}
           placeholder="请输入访问路径" 
           onChange={(value) => handleChange('path', value)} 
+        />
+
+        <Picker
+          title="选择布局"
+          options={layoutOptions}
+          value={formData.layout}
+          onChange={(val: string) => handleChange('layout', val)}
         />
 
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
