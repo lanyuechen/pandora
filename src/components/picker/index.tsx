@@ -16,7 +16,7 @@ export default (props: any) => {
       rangeKey="value"
       onChange={(e) => onChange(options[e.detail.value as number].key)}
     >
-      <AtList>
+      <AtList hasBorder={false}>
         <AtListItem
           title={title}
           extraText={name}

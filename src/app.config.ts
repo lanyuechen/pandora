@@ -4,6 +4,7 @@ export default {
     'pages/projects/optimset/index',    // 项目列表-创建或修改项目（根据是否包含 ?id=项目id 决定是创建还是修改）
     'pages/projects/detail/index',      // 项目列表-项目详情 ?id=项目id
     'pages/projects/config/index',      // 项目列表-项目详情-视图配置 ?id=项目id&idx=视图配置索引
+    'pages/projects/preview/index',     // 项目列表-项目详情-视图预览 ?id=项目id&idx=视图配置索引
 
     'pages/views/index',                // 视图列表
     'pages/views/optimset/index',       // 视图列表-创建或修改视图（根据是否包含 ?id=视图id 决定是创建还是修改）

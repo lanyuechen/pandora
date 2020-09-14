@@ -55,6 +55,12 @@ export default () => {
     });
   };
 
+  const toPreview = (idx: number) => {
+    Taro.navigateTo({
+      url: `/pages/projects/preview/index?id=${id}&idx=${idx}`
+    });
+  };
+
   if (!detail) {
     return null;
   }
@@ -95,6 +101,7 @@ export default () => {
               note={item.path}
               arrow="right"
               iconInfo={{ size: 25, color: '#78A4FA', value: 'iphone' }}
+              onClick={() => toPreview(i)}
             />
           </SwipeAction>
         ))}
