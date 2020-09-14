@@ -9,7 +9,7 @@ import { Component } from '../data';
 
 export default () => {
   const [ detail, setDetail ] = useState<Component>();
-  const { id } = useRouter().params;
+  const { id = '' } = useRouter().params;
 
   const getDetail = async () => {
     const res = await service.detail(id);
@@ -22,6 +22,12 @@ export default () => {
   useEffect(() => {
     getDetail();
   }, []);
+
+  const toOptimset = () => {
+    Taro.navigateTo({
+      url: `/pages/components/optimset/index?id=${id}`
+    });
+  };
 
   if (!detail) {
     return null;
@@ -50,7 +56,7 @@ export default () => {
         </View>
       </View>
 
-      <AtFab className="fab-btn">
+      <AtFab className="fab-btn" onClick={toOptimset}>
         <Text className="at-fab__icon at-icon at-icon-edit" />
       </AtFab>
     </Container>
