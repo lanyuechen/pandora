@@ -14,7 +14,7 @@ export default (props: any) => {
   return (
     <>
       <AtImagePicker
-        files={value.files || []}
+        files={value.dataSource || []}
         onChange={(files: any) => handleChange('dataSource', files)}
       />
     </>

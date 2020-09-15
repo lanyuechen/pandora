@@ -1,5 +1,6 @@
 import React from 'react';
 import { AtInput } from 'taro-ui';
+import Picker from '@/components/picker';
 
 export default (props: any) => {
   const { onChange, value = {} } = props;
@@ -15,10 +16,17 @@ export default (props: any) => {
     <>
       <AtInput 
         name="text" 
-        title="段落内容" 
+        title="标题内容" 
         value={value.text}
-        placeholder="请输入段落内容" 
+        placeholder="请输入标题内容" 
         onChange={(val) => handleChange('text', val)} 
+      />
+
+      <Picker 
+        title="显示级别" 
+        value={value.level}
+        options={['1', '2', '3']}
+        onChange={(val) => handleChange('level', val)} 
       />
     </>
   )
