@@ -12,7 +12,7 @@ const MySwiper = (props: PropsType) => {
     <Swiper circular indicatorDots autoplay>
       {dataSource.map((d: DataType, i: number) => (
         <SwiperItem key={i}>
-          <Image src={d.url} />
+          <Image src={d.url} mode="aspectFill" style={{width: '100%'}} />
         </SwiperItem>
       ))}
     </Swiper>
