@@ -1,7 +1,8 @@
 import React from 'react';
 import { AtImagePicker } from 'taro-ui';
+import { PropsFormPropsType } from '@/wardrobe/props-form.data';
 
-export default (props: any) => {
+export default (props: PropsFormPropsType) => {
   const { onChange, value = {} } = props;
 
   const handleChange = (key: string, val: any) => {

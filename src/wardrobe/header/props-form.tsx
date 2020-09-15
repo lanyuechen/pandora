@@ -1,8 +1,9 @@
 import React from 'react';
 import { AtInput } from 'taro-ui';
 import Picker from '@/components/picker';
+import { PropsFormPropsType } from '@/wardrobe/props-form.data';
 
-export default (props: any) => {
+export default (props: PropsFormPropsType) => {
   const { onChange, value = {} } = props;
 
   const handleChange = (key: string, val: any) => {
