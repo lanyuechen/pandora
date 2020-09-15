@@ -10,6 +10,7 @@ export default {
     'pages/views/optimset/index',       // 视图列表-创建或修改视图（根据是否包含 ?id=视图id 决定是创建还是修改）
     'pages/views/detail/index',         // 视图列表-视图详情 ?id=视图id
     'pages/views/config/index',         // 视图列表-视图详情-组件配置 ?id=视图id&idx=组件配置索引
+    'pages/views/preview/index',        // 视图列表-视图详情-组件预览 ?id=视图id&idx=组件配置索引
 
     'pages/components/index',           // 组件列表
     'pages/components/optimset/index',  // 组件列表-创建或修改组件（根据是否包含 ?id=组件id 决定是创建还是修改）

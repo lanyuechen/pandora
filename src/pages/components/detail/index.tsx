@@ -5,6 +5,9 @@ import Navbar from '@/components/navbar';
 import Container from '@/components/container';
 import Taro, { useRouter } from '@tarojs/taro';
 import * as service from '@/services/component';
+
+import Wardrobe from '@/wardrobe';
+
 import { Component } from '../data';
 
 export default () => {
@@ -33,6 +36,8 @@ export default () => {
     return null;
   }
 
+  const C = Wardrobe[detail.component];
+
   return (
     <Container>
       <Navbar
@@ -54,6 +59,10 @@ export default () => {
             {detail.desc}
           </View>
         </View>
+      </View>
+
+      <View>
+        <C />
       </View>
 
       <AtFab className="fab-btn" onClick={toOptimset}>
