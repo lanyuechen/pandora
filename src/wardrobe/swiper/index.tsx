@@ -3,6 +3,8 @@ import { Image, Swiper, SwiperItem } from '@tarojs/components';
 
 import img from '@/assets/img/panda-1.jpeg';
 
+import PropsForm from './props-form';
+
 import { PropsType, DataType } from './data';
 
 const MySwiper = (props: PropsType) => {
@@ -26,5 +28,7 @@ MySwiper.defaultProps = {
     { url: img },
   ]
 }
+
+MySwiper.PropsForm = PropsForm;
 
 export default MySwiper;

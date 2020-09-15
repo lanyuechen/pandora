@@ -66,7 +66,7 @@ project
 | 属性 | 类型 | 描述 | 是否必须 |
 | ---- | ---- | ---- | ---- |
 | cid | string | 组件id | 是 |
-| files | any | 轮播图的背景列表，待修改 | 是，默认为“[]” |
+| props | any | 组件props属性 | 是，默认为“{}” |
 
 ## Component（组件）
 
@@ -80,6 +80,11 @@ project
 | ut | string | 组件更新时间 | 系统生成 |
 <!-- | config | object | 视图配置 | 预留, 考虑与[ComponentConfig\[\]](#componentconfig)结构保持一致 | -->
 <!-- | subsets | [ComponentConfig\[\]](#componentconfig) | 预留，考虑组件嵌套 | -->
+
+## 组件定义
+
+- 组件定义在`/wardrobe`下，每个组件单独占用一个目录，并在`index.ts`中导出
+- 每个组件包含两部分，一部分是组件本身的定义，一部分是组件`props表单`的定义，`props表单`将渲染在配置页面，用于配置组件的props属性
 
 ## 那些坑
 

@@ -51,7 +51,7 @@ export default () => {
       />
 
       <View>
-        <C dataSource={detail.files} />
+        <C {...(detail.props || {})} />
       </View>
 
     </Container>

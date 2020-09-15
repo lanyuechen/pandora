@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Taro, { useRouter } from '@tarojs/taro';
-import { AtForm, AtButton, AtImagePicker } from 'taro-ui';
+import { AtForm, AtButton } from 'taro-ui';
 import Navbar from '@/components/navbar';
 import Container from '@/components/container';
 import Picker from '@/components/picker';
 import * as service from '@/services/view';
 import * as subService from '@/services/component';
+
+import Wardrobe from '@/wardrobe';
 
 import { SubsetConfig } from '../data.d';
 
@@ -21,6 +23,7 @@ export default () => {
       setPickerOptions(options.data.map((d: any) => ({
         key: d._id,
         value: d.name,
+        component: d.component,
       })));
     }
     if (idx > -1) {
@@ -34,6 +37,12 @@ export default () => {
   useEffect(() => {
     init();
   }, []);
+
+  let PropsForm;
+  const option = pickerOptions.find((d: any) => d.key === formData.cid);
+  if (option) {
+    PropsForm = Wardrobe[option.component].PropsForm;
+  }
   
   const submit = async () => {
     let res;
@@ -71,10 +80,7 @@ export default () => {
           onChange={(val: string) => handleChange('cid', val)}
         />
 
-        <AtImagePicker
-          files={formData.files || []}
-          onChange={(files: any) => handleChange('files', files)}
-        />
+        {PropsForm && <PropsForm value={formData.props} onChange={(value: any) => handleChange('props', value)} />}
 
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>

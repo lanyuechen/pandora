@@ -66,7 +66,7 @@ export default () => {
         const C = Wardrobe[component.meta.component];
         return (
           <View key={component.meta._id}>
-            <C dataSource={component.files} />
+            <C {...(component.props || {})} />
           </View>
         )
       })}
