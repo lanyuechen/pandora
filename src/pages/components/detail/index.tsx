@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from '@tarojs/components';
-import { AtFab } from 'taro-ui';
+import { View } from '@tarojs/components';
 import Navbar from '@/components/navbar';
 import Container from '@/components/container';
 import Taro, { useRouter } from '@tarojs/taro';
@@ -25,12 +24,6 @@ export default () => {
   useEffect(() => {
     getDetail();
   }, []);
-
-  const toOptimset = () => {
-    Taro.navigateTo({
-      url: `/pages/components/optimset/index?id=${id}`
-    });
-  };
 
   if (!detail) {
     return null;
@@ -64,10 +57,6 @@ export default () => {
       <View>
         <C />
       </View>
-
-      <AtFab className="fab-btn" onClick={toOptimset}>
-        <Text className="at-fab__icon at-icon at-icon-edit" />
-      </AtFab>
     </Container>
   )
 }
