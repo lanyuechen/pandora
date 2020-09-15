@@ -1,10 +1,32 @@
-import Loki, { Collection, LokiLocalStorageAdapter as Adapter } from 'lokijs';
-import LeanStorage from '@/utils/lean-storage';
+import Loki, { Collection } from 'lokijs';
 import { uuid } from '@/utils/common';
+import Taro from '@tarojs/taro';
 
 const DB_NAME = 'pandora.db';
 const DB_INSTANCE = Symbol.for('db-instance-key');
-const adapter = new Adapter();
+
+
+class TaroAdapter {
+  loadDatabase(dbname: string, callback: (err: any) => void) {
+    try {
+      const serializedDb = Taro.getStorageSync(dbname);
+      callback(serializedDb);
+    } catch(err) {
+      callback(err);
+    }
+  }
+
+  saveDatabase(dbname: string, dbstring: string, callback: (err: any) => void) {
+    try {
+      Taro.setStorageSync(dbname, dbstring);
+      callback(null)
+    } catch(err) {
+      callback(err);
+    }
+  }
+}
+
+const adapter = new TaroAdapter();
 
 class DB {
   db: Loki;
@@ -21,29 +43,9 @@ class DB {
     this.db = new Loki(DB_NAME, {
       env: 'BROWSER',
       autosave: true,
-      // autoload: true,
+      autoload: true,
       adapter: adapter,
     });
-    this.syncDown();
-  }
-
-  /**
-   * 从服务器向本地同步数据
-   */
-  syncDown() {
-    // this.db.loadDatabase();
-    LeanStorage.query().then((res: any) => {
-      this.db.loadJSON(res);
-    }).catch((err: any) => {
-      console.log('【error】', err);
-    });
-  }
-
-  /**
-   * 从本地向服务器同步数据
-   */
-  syncUp() {
-    LeanStorage.save(this.db.serialize())
   }
 
   table(name: string) {
@@ -62,20 +64,17 @@ class DB {
   insert(data: any) {
     const _id = uuid();
     this.collection.insert({...data, _id});
-    this.syncUp();
   }
 
   update(spec = {}, data: any) {
     this.collection.findAndUpdate(spec, (d: any) => {
       data = typeof data === 'function' ? data(d) : data;
       Object.assign(d, data);
-      this.syncUp();
     });
   }
 
   delete(spec = {}) {
     this.collection.findAndRemove(spec);
-    this.syncUp();
   }
 }
 
