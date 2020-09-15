@@ -1,11 +1,6 @@
+## 原则
 
-## 概念
-
-| 英文 | 中文 | 概念 |
-| ---- | ---- | ---- |
-| project | 项目 | 一个项目，一个项目包含多个页面（视图） | 
-| view | 视图 | 项目中的一个页面，多个页面组成一个项目，一个项目包含多个组件 |
-| component | 组件 | 页面中的一个组件，多个组件组成一个页面，一个组件也可以由多个子组件组成 |
+- 项目只能配置视图的行为，组件的行为由视图进行配置
 
 ## 项目结构
 
@@ -36,9 +31,55 @@ project
 
 ## Project（项目）
 
+| 属性 | 类型 | 描述 | 是否必须 |
+| ---- | ---- | ---- | ---- |
+| _id | string | 项目id | 系统生成 |
+| name | string | 项目名 | 是 |
+| desc | string | 项目简介 | 否 |
+| ct | string | 项目创建时间 | 系统生成 |
+| ut | string | 项目更新时间 | 系统生成 |
+<!-- | config | object | 项目配置 | 预留 | -->
+| subsets | [ViewConfig\[\]](#viewconfig) | 项目下各视图配置列表 | 是，默认为“[]” |
+
+### ViewConfig
+
+| 属性 | 类型 | 描述 | 是否必须 |
+| ---- | ---- | ---- | ---- |
+| cid | string | 视图id | 是 |
+| path | string | 视图访问路径 | 是 |
+| layout | string | 视图布局方式 | 是，默认为“auto” |
+
 ## View（视图）
 
+| 属性 | 类型 | 描述 | 是否必须 |
+| ---- | ---- | ---- | ---- |
+| _id | string | 视图id | 系统生成 |
+| name | string | 视图名 | 是 |
+| desc | string | 视图简介 | 否 |
+| ct | string | 视图创建时间 | 系统生成 |
+| ut | string | 视图更新时间 | 系统生成 |
+<!-- | config | object | 视图配置 | 预留, 考虑与[ViewConfig\[\]](#viewconfig)结构保持一致 | -->
+| subsets | [ComponentConfig\[\]](#componentconfig) | 视图下各组件配置列表 | 是，默认为“[]” |
+
+### ComponentConfig
+
+| 属性 | 类型 | 描述 | 是否必须 |
+| ---- | ---- | ---- | ---- |
+| cid | string | 组件id | 是 |
+| files | any | 轮播图的背景列表，待修改 | 是，默认为“[]” |
+
 ## Component（组件）
+
+| 属性 | 类型 | 描述 | 是否必须 |
+| ---- | ---- | ---- | ---- |
+| _id | string | 组件id | 系统生成 |
+| name | string | 组件名 | 是 |
+| desc | string | 组件简介 | 否 |
+| component | string | 组件对应的react组件名称 | 是 |
+| ct | string | 组件创建时间 | 系统生成 |
+| ut | string | 组件更新时间 | 系统生成 |
+<!-- | config | object | 视图配置 | 预留, 考虑与[ComponentConfig\[\]](#componentconfig)结构保持一致 | -->
+<!-- | subsets | [ComponentConfig\[\]](#componentconfig) | 预留，考虑组件嵌套 | -->
 
 ## 那些坑
 
