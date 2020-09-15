@@ -1,5 +1,7 @@
 export interface SubsetConfig {
   cid: string;    // 组件id
+  props: any;     // 组件props
+  [key: string]: any;
 }
 
 export interface Config {

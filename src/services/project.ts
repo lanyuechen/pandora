@@ -33,7 +33,6 @@ export async function create(data: CreateParams) {
 export async function update(id: string, data: CreateParams) {
   const res = DB.table('project').update({_id: id}, {
     ...data,
-    subsets: data.subsets || [],
     ut: new Date().toISOString(), 
   });
   return {

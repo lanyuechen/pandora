@@ -3,9 +3,14 @@ import Taro, { useRouter } from '@tarojs/taro';
 import { AtForm, AtInput, AtButton } from 'taro-ui';
 import Navbar from '@/components/navbar';
 import Container from '@/components/container';
+import Picker from '@/components/picker';
 import * as service from '@/services/component';
 
+import Wardrobe from '@/wardrobe';
+
 import { Component } from '../data.d';
+
+const wardrobeOptions = Object.keys(Wardrobe);
 
 export default () => {
   const [ formData, setFormData ] = useState<Component>({} as Component);
@@ -66,6 +71,13 @@ export default () => {
           value={formData.desc}
           placeholder="请输入组件简介"
           onChange={(value) => handleChange('desc', value)}
+        />
+
+        <Picker
+          title="选择组件"
+          value={formData.component}
+          options={wardrobeOptions}
+          onChange={(value) => handleChange('component', value)}
         />
         
         <AtButton full type="primary" onClick={submit}>提交</AtButton>

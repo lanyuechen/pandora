@@ -20,6 +20,7 @@ export async function detail(id: string) {
 export async function create(data: CreateParams) {
   const res = DB.table('component').insert({
     ...data,
+    config: data.config || {},
     ct: new Date().toISOString(),
     ut: new Date().toISOString(), 
   });

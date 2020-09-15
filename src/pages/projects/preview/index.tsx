@@ -7,6 +7,8 @@ import * as service from '@/services/project';
 import * as ViewService from '@/services/view';
 import * as ComponentService from '@/services/component';
 
+import Wardrobe from '@/wardrobe';
+
 export default () => {
   const { id = '', idx = -1 } = useRouter().params;
   const [ detail, setDetail ] = useState<any>();
@@ -60,11 +62,15 @@ export default () => {
         leftIconType="chevron-left"
       />
 
-      视图预览
-      {detail.subsets.map((d: any) => (
-        <View key={d.meta._id}>{d.meta.name}</View>
-      ))}
-      
+      {detail.subsets.map((component: any) => {
+        const C = Wardrobe[component.meta.component];
+        return (
+          <View key={component.meta._id}>
+            <C dataSource={component.files} />
+          </View>
+        )
+      })}
+
     </Container>
   )
 }
