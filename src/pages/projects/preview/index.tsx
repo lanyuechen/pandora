@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Container from '@/components/container';
 import Navbar from '@/components/navbar';
+import LayoutContainer from '@/components/layout-container';
 import Taro, { useRouter, useDidShow } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import * as service from '@/services/project';
@@ -62,14 +63,20 @@ export default () => {
         leftIconType="chevron-left"
       />
 
-      {detail.subsets.map((component: any) => {
-        const C = Wardrobe[component.meta.component];
-        return (
-          <View key={component.meta._id}>
-            <C {...(component.props || {})} />
-          </View>
-        )
-      })}
+      <LayoutContainer
+        type={detail.layout}
+        gridTemplateColumns={detail.gridTemplateColumns}
+        gridTemplateRows={detail.gridTemplateRows}
+      >
+        {detail.subsets.map((component: any) => {
+          const C = Wardrobe[component.meta.component];
+          return (
+            <View key={component.meta._id}>
+              <C {...(component.props || {})} />
+            </View>
+          )
+        })}
+      </LayoutContainer>
 
     </Container>
   )

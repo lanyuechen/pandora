@@ -92,6 +92,22 @@ export default () => {
           onChange={(val: string) => handleChange('layout', val)}
         />
 
+        <AtInput
+          name="gridTemplateColumns"
+          title="列配置" 
+          value={formData.gridTemplateColumns}
+          placeholder="请输入网格列配置" 
+          onChange={(value) => handleChange('gridTemplateColumns', value)} 
+        />
+
+        <AtInput
+          name="gridTemplateRows"
+          title="行配置" 
+          value={formData.gridTemplateRows}
+          placeholder="请输入网格行配置" 
+          onChange={(value) => handleChange('gridTemplateRows', value)} 
+        />
+
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>
     </Container>

@@ -38,16 +38,7 @@ project
 | desc | string | 项目简介 | 否 |
 | ct | string | 项目创建时间 | 系统生成 |
 | ut | string | 项目更新时间 | 系统生成 |
-<!-- | config | object | 项目配置 | 预留 | -->
 | subsets | [ViewConfig\[\]](#viewconfig) | 项目下各视图配置列表 | 是，默认为“[]” |
-
-### ViewConfig
-
-| 属性 | 类型 | 描述 | 是否必须 |
-| ---- | ---- | ---- | ---- |
-| cid | string | 视图id | 是 |
-| path | string | 视图访问路径 | 是 |
-| layout | string | 视图布局方式 | 是，默认为“auto” |
 
 ## View（视图）
 
@@ -58,15 +49,16 @@ project
 | desc | string | 视图简介 | 否 |
 | ct | string | 视图创建时间 | 系统生成 |
 | ut | string | 视图更新时间 | 系统生成 |
-<!-- | config | object | 视图配置 | 预留, 考虑与[ViewConfig\[\]](#viewconfig)结构保持一致 | -->
 | subsets | [ComponentConfig\[\]](#componentconfig) | 视图下各组件配置列表 | 是，默认为“[]” |
+| ...ViewConfig |
 
-### ComponentConfig
+### ViewConfig
 
 | 属性 | 类型 | 描述 | 是否必须 |
 | ---- | ---- | ---- | ---- |
-| cid | string | 组件id | 是 |
-| props | any | 组件props属性 | 是，默认为“{}” |
+| cid | string | 视图id | 是 |
+| path | string | 视图访问路径 | 是 |
+| layout | string | 视图布局方式 | 是，默认为“auto” |
 
 ## Component（组件）
 
@@ -78,8 +70,15 @@ project
 | component | string | 组件对应的react组件名称 | 是 |
 | ct | string | 组件创建时间 | 系统生成 |
 | ut | string | 组件更新时间 | 系统生成 |
-<!-- | config | object | 视图配置 | 预留, 考虑与[ComponentConfig\[\]](#componentconfig)结构保持一致 | -->
 <!-- | subsets | [ComponentConfig\[\]](#componentconfig) | 预留，考虑组件嵌套 | -->
+| ...ComponentConfig |
+
+### ComponentConfig
+
+| 属性 | 类型 | 描述 | 是否必须 |
+| ---- | ---- | ---- | ---- |
+| cid | string | 组件id | 是 |
+| props | any | 组件props属性 | 是，默认为“{}” |
 
 ## 组件定义
 

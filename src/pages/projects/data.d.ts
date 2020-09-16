@@ -9,10 +9,9 @@ export interface Config {
   [foo: string]: string;
 }
 
-export interface CreateParams {
+export interface CreateParams extends Config {
   name: string;             // 项目名
   desc: string;             // 项目简介
-  config: Config;           // 项目配置
   subsets: SubsetConfig[];  // 子集(视图)配置列表
 }
 

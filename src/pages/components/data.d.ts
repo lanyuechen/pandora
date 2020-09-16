@@ -1,13 +1,11 @@
 export interface Config {
   props?: any;
-  [key: string]: any;
 }
 
-export interface CreateParams {
+export interface CreateParams extends Config {
   name: string;             // 组件名
   desc: string;             // 组件简介
   component: string;        // 组件类型（react组件名称）
-  config: Config;           // 组件配置
 }
 
 export interface Component extends CreateParams {

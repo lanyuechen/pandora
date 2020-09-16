@@ -6,12 +6,13 @@ export interface SubsetConfig extends ComponentConfig {
 
 export interface Config {
   layout: 'auto' | 'flow' | 'grid';   // 布局方式
+  gridTemplateColumns: string;
+  gridTemplateRows: string;
 }
 
-export interface CreateParams {
+export interface CreateParams extends Config {
   name: string;                     // 视图名
   desc: string;                     // 视图简介
-  config: Config;                   // 视图配置
   subsets: SubsetConfig[];          // 子集(组件)配置列表
 }
 
