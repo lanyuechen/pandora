@@ -15,13 +15,18 @@ $color-names: 'red', 'orange', 'yellow', 'olive', 'green', 'cyan', 'blue', 'purp
 .fab-btn {
   position: fixed;
   right: 16PX;
-  bottom: 80PX;
+  bottom: 84PX;
   z-index: 10;
 }
 
 /* 按钮虚线框 */
 .dashed {
   border-style: dashed;
+}
+
+/* tabbar */
+.tabbar {
+  height: 68PX;
 }
 
 /* 导航栏 */
