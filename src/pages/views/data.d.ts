@@ -1,10 +1,11 @@
-export interface SubsetConfig {
+import { Config as ComponentConfig } from '@/pages/components/data';
+
+export interface SubsetConfig extends ComponentConfig {
   cid: string;    // 组件id
-  [key: string]: any;
 }
 
 export interface Config {
-  layout: string;   // 组件布局类型
+  layout: 'auto' | 'flow' | 'grid';   // 布局方式
 }
 
 export interface CreateParams {

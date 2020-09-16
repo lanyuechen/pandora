@@ -1,7 +1,8 @@
-export interface SubsetConfig {
+import { Config as ViewConfig } from '@/pages/views/data';
+
+export interface SubsetConfig extends ViewConfig {
   cid: string;    // 视图id
   path: string;   // 访问路径
-  layout: 'auto' | 'flow' | 'grid';   // 布局方式
 }
 
 export interface Config {

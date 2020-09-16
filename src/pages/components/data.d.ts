@@ -1,4 +1,5 @@
 export interface Config {
+  props?: any;
   [key: string]: any;
 }
 
