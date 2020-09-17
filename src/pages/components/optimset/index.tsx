@@ -48,6 +48,8 @@ export default () => {
     });
   }
 
+  const PropsForm = Wardrobe[formData.component] && Wardrobe[formData.component].PropsForm;
+
   return (
     <Container>
       <Navbar
@@ -79,6 +81,8 @@ export default () => {
           options={wardrobeOptions}
           onChange={(value) => handleChange('component', value)}
         />
+
+        {PropsForm && <PropsForm value={formData.props} onChange={(value: any) => handleChange('props', value)} />}
         
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
       </AtForm>

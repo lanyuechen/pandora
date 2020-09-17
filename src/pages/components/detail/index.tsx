@@ -55,7 +55,7 @@ export default () => {
       </View>
 
       <View>
-        <C />
+        <C {...(detail.props || {})} />
       </View>
     </Container>
   )
