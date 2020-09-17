@@ -11,7 +11,7 @@
 
 - [ ] 远程调试自定义tabbar不显示
     > 目前的解决办法是不使用这个功能。。。
-- [ x ] 自定义tabbar切换时选中状态每次都会选中第一个，然后再切换到真正选中的tab上
+- [x] 自定义tabbar切换时选中状态每次都会选中第一个，然后再切换到真正选中的tab上
     > 因为每个tab页面都是一个新的实例，如果给tabbar设置了默认值，则第一次渲染的时候都会先选中默认值
 
 ### Taro的坑
@@ -26,8 +26,9 @@
 
 ### Taro-ui的坑
 
-- [ ] AtSwipeAction组件使用时报错
+- [x] AtSwipeAction组件使用时报错【已解决】
     > 原因： 组件引用入口为`taro-ui/dist/index.umd.js`导致部分打包后的函数`undefined`<br />
     解决方式：将组件引用入口改为`taro-ui/dist/index.esm.js`(通过修改`taro-ui`的`package.json`文件实现)
+- [ ] AtSwipeAction组件卡顿
 
 ### 不知道是谁的坑的坑
