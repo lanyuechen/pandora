@@ -31,8 +31,8 @@ export default () => {
     setDetail({
       ...res.data,
       subsets: subsets.map(d => ({
+        ...(dMap[d.cid] || {}),
         ...d,
-        meta: dMap[d.cid],
       })),
     });
   }
@@ -57,7 +57,7 @@ export default () => {
 
   const toPreview = (idx: number) => {
     Taro.navigateTo({
-      url: `/pages/projects/preview/index?id=${id}&idx=${idx}`
+      url: `/pages/views/preview/index?pid=${id}&idx=${idx}`
     });
   };
 
@@ -97,7 +97,7 @@ export default () => {
             onRemoveClick={() => handleRemove(i)}
           >
             <AtListItem
-              title={item.meta ? item.meta.name : '该视图已被删除，请移除该配置项。'}
+              title={item.name || '该视图已被删除，请移除该配置项。'}
               note={item.path}
               arrow="right"
               iconInfo={{ size: 25, color: '#78A4FA', value: 'iphone' }}

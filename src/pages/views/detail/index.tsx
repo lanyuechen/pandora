@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text } from '@tarojs/components';
-import { AtFab, AtList, AtListItem } from 'taro-ui';
+import { AtFab, AtButton, AtList, AtListItem } from 'taro-ui';
 import Container from '@/components/container';
 import Navbar from '@/components/navbar';
 import Taro, { useRouter, useDidShow } from '@tarojs/taro';
@@ -31,8 +31,8 @@ export default () => {
     setDetail({
       ...res.data,
       subsets: subsets.map(d => ({
+        ...(dMap[d.cid] || {}),
         ...d,
-        meta: dMap[d.cid],
       })),
     });
   }
@@ -55,9 +55,15 @@ export default () => {
     });
   };
 
-  const toPreview = (idx: number) => {
+  const toPreview = () => {
     Taro.navigateTo({
-      url: `/pages/views/preview/index?id=${id}&idx=${idx}`
+      url: `/pages/views/preview/index?id=${id}`
+    });
+  };
+
+  const toComponentPreview = (idx: number) => {
+    Taro.navigateTo({
+      url: `/pages/components/preview/index?pid=${id}&idx=${idx}`
     });
   };
 
@@ -77,6 +83,14 @@ export default () => {
       <View className="at-article" style={{marginBottom: '15px'}}>
         <View className="at-article__h1">
           {detail.name}
+          <AtButton 
+            circle
+            size="small" 
+            onClick={toPreview} 
+            customStyle={{display: 'inline-block', float: 'right'}} 
+          >
+            预览
+          </AtButton>
         </View>
         <View className="at-article__content">
           <View className="at-article__info">
@@ -97,11 +111,11 @@ export default () => {
             onRemoveClick={() => handleRemove(i)}
           >
             <AtListItem
-              title={item.meta ? item.meta.name : '该组件已被删除，请移除该配置项。'}
+              title={item.name || '该组件已被删除，请移除该配置项。'}
               note={item.path}
               arrow="right"
               iconInfo={{ size: 25, color: '#78A4FA', value: 'money' }}
-              onClick={() => toPreview(i)}
+              onClick={() => toComponentPreview(i)}
             />
           </SwipeAction>
         ))}

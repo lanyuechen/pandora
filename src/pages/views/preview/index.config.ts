@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '组件预览'
+  navigationBarTitleText: '视图预览'
 }
