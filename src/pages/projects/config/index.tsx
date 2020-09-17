@@ -6,14 +6,9 @@ import Container from '@/components/container';
 import Picker from '@/components/picker';
 import * as service from '@/services/project';
 import * as subService from '@/services/view';
+import ViewConfigForms from '@/pages/views/basic-config';
 
 import { SubsetConfig } from '../data.d';
-
-const layoutOptions = [
-  {key: 'auto', value: '自动布局'},
-  {key: 'flow', value: '流式布局'},
-  {key: 'grid', value: '网格布局'},
-]
 
 export default () => {
   const [ formData, setFormData ] = useState<SubsetConfig>({} as SubsetConfig);
@@ -85,27 +80,9 @@ export default () => {
           onChange={(value) => handleChange('path', value)} 
         />
 
-        <Picker
-          title="选择布局"
-          options={layoutOptions}
-          value={formData.layout}
-          onChange={(val: string) => handleChange('layout', val)}
-        />
-
-        <AtInput
-          name="gridTemplateColumns"
-          title="列配置" 
-          value={formData.gridTemplateColumns}
-          placeholder="请输入网格列配置" 
-          onChange={(value) => handleChange('gridTemplateColumns', value)} 
-        />
-
-        <AtInput
-          name="gridTemplateRows"
-          title="行配置" 
-          value={formData.gridTemplateRows}
-          placeholder="请输入网格行配置" 
-          onChange={(value) => handleChange('gridTemplateRows', value)} 
+        <ViewConfigForms
+          value={formData}
+          onChange={handleChange}
         />
 
         <AtButton full type="primary" onClick={submit}>提交</AtButton>

@@ -4,24 +4,16 @@ import { AtForm, AtInput, AtButton } from 'taro-ui';
 import Container from '@/components/container';
 import Navbar from '@/components/navbar';
 import * as service from '@/services/view';
-import * as subService from '@/services/component';
-import DynamicForm from '@/components/dynamic-form';
+
+import ViewConfigForms from '@/pages/views/basic-config';
 
 import { View as ViewItem } from '../data.d';
 
 export default () => {
   const [ formData, setFormData ] = useState<ViewItem>({} as ViewItem);
-  const [ pickerOptions, setPickerOptions ] = useState<any>([]);
   const { id } = useRouter().params;
 
   const init = async () => {
-    const options = await subService.list({});
-    if (options.success) {
-      setPickerOptions(options.data.map((d: any) => ({
-        key: d._id,
-        value: d.name,
-      })));
-    }
     if (id) {
       const detail = await service.detail(id);
       if (detail.success) {
@@ -77,19 +69,10 @@ export default () => {
           placeholder="请输入视图简介"
           onChange={(value) => handleChange('desc', value)}
         />
-        
-        <DynamicForm
-          config={[
-            {
-              type: 'select',
-              key: 'cid',
-              title: '选择组件',
-              placeholder: '请选择组件',
-              options: pickerOptions,
-            }
-          ]}
-          value={formData.subsets || []}
-          onChange={(value: any) => handleChange('subsets', value)}
+
+        <ViewConfigForms
+          value={formData}
+          onChange={handleChange}
         />
 
         <AtButton full type="primary" onClick={submit}>提交</AtButton>

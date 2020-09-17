@@ -4,24 +4,14 @@ import { AtForm, AtInput, AtButton } from 'taro-ui';
 import Navbar from '@/components/navbar';
 import Container from '@/components/container';
 import * as service from '@/services/project';
-import * as subService from '@/services/view';
-import DynamicForm from '@/components/dynamic-form';
 
 import { Project } from '../data.d';
 
 export default () => {
   const [ formData, setFormData ] = useState<Project>({} as Project);
-  const [ pickerOptions, setPickerOptions ] = useState<any>([]);
   const { id } = useRouter().params;
 
   const init = async () => {
-    const options = await subService.list({});
-    if (options.success) {
-      setPickerOptions(options.data.map((d: any) => ({
-        key: d._id,
-        value: d.name,
-      })));
-    }
     if (id) {
       const detail = await service.detail(id);
       if (detail.success) {
@@ -76,20 +66,6 @@ export default () => {
           value={formData.desc}
           placeholder="请输入项目简介"
           onChange={(value) => handleChange('desc', value)}
-        />
-        
-        <DynamicForm
-          config={[
-            {
-              type: 'select',
-              key: 'cid',
-              title: '选择视图',
-              placeholder: '请选择视图',
-              options: pickerOptions,
-            },
-          ]}
-          value={formData.subsets || []}
-          onChange={(value: any) => handleChange('subsets', value)}
         />
 
         <AtButton full type="primary" onClick={submit}>提交</AtButton>
