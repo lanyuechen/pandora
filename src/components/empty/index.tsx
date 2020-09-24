@@ -3,8 +3,6 @@ import { View, Text } from '@tarojs/components';
 
 import './style.scss';
 
-// import img from '@/assets/img/panda-1.jpeg';
-
 export default (props: any) => {
   return (
     <View className="empty">
