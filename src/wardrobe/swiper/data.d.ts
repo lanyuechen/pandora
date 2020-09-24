@@ -4,4 +4,5 @@ export interface DataType {
 
 export interface PropsType {
   dataSource: DataType[];
+  height: number | string;
 }

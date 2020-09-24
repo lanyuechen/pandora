@@ -15,16 +15,15 @@ export default (props: PropsFormPropsType) => {
   return (
     <>
       <AtInput 
-        name="height"
-        title="轮播图高度" 
-        value={value.height}
-        onChange={(val) => handleChange('height', val)} 
+        name="title"
+        title="图片标题" 
+        value={value.title}
+        onChange={(val) => handleChange('title', val)} 
       />
-
       <AtImagePicker
         mode="aspectFill"
-        files={value.dataSource || []}
-        onChange={(files: any) => handleChange('dataSource', files)}
+        files={value.src ? [{url: value.src}] : []}
+        onChange={(files: any) => handleChange('src', files[0].url)}
       />
     </>
   )
