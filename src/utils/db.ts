@@ -5,7 +5,6 @@ import Taro from '@tarojs/taro';
 const DB_NAME = 'pandora.db';
 const DB_INSTANCE = Symbol.for('db-instance-key');
 
-
 class TaroAdapter {
   loadDatabase(dbname: string, callback: (err: any) => void) {
     try {
