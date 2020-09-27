@@ -23,6 +23,8 @@
     > 目前通过把几个tab页面做到同一个页面上，并且通过状态进行显示隐藏实现
 - [ ] git上提的很多问题都没有人响应
     > 垃圾
+- [x] 获取Canvas实例为null
+    > 要使用id，不是canvasId，需要在Taro.nextTick中获取
 
 ### Taro-ui的坑
 
