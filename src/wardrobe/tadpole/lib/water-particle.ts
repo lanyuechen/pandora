@@ -1,4 +1,4 @@
-import { BoundsType } from "./data";
+import { BoundsType } from "../data";
 
 export default class WaterParticle {
 	x: number;

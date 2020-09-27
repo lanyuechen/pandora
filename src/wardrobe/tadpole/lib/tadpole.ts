@@ -1,5 +1,5 @@
 import TadpoleTail from './tadpole-tail';
-import { MouseType } from './data';
+import { MouseType } from '../data';
 
 export default class Tadpole {
 	id: any;

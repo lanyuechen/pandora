@@ -1,4 +1,4 @@
-import { JointType } from "./data";
+import { JointType } from "../data";
 import Tadpole from "./tadpole";
 
 const jointSpacing = 1.4;

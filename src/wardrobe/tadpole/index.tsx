@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Canvas } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 
-import App from './app';
+import Pond from './lib/pond';
+import PropsForm from './props-form';
+import { PropsType } from './data';
 
-export default () => {
-  const [ pond, setPond ] = useState<App>();
+const Tadpole = (props: PropsType) => {
+  const { height } = props;
+  const [ pond, setPond ] = useState<Pond>();
 
   useEffect(() => {
     Taro.nextTick(() => {
@@ -15,11 +18,11 @@ export default () => {
         const info = Taro.getSystemInfoSync();
         
         canvas.width = info.windowWidth;
-        canvas.height = info.windowWidth * 2 / 3;
+        canvas.height = height || info.windowWidth * 2 / 3;
 
-        const app = new App(canvas);
-        setPond(app);
-        app.run();
+        const myPond = new Pond(canvas);
+        setPond(myPond);
+        myPond.run();
       });
     });
   }, []);
@@ -53,3 +56,7 @@ export default () => {
     </View>
   )
 }
+
+Tadpole.PropsForm = PropsForm;
+
+export default Tadpole;

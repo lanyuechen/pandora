@@ -2,33 +2,23 @@ import Tadpole from './tadpole';
 import WaterParticle from './water-particle';
 import Camera from './camera';
 
-import { ModelType, MouseType } from './data';
+import { ModelType, MouseType } from '../data';
 
-const INSTANCE_APP = Symbol.for('instance');
+const INSTANCE_POND = Symbol.for('instance');
 
 const keyNav = { x: 0, y: 0 };
 
-const keys = {
-  esc: 27,
-  enter: 13,
-  space: 32,
-  up: 38,
-  down: 40,
-  left:37,
-  right:39
-};
-
-export default class App {
+export default class Pond {
   canvas: any;
   ctx: any;
   model: ModelType;
   mouse: MouseType;
 
   static getInstance(canvas: any) {
-    if (!window[INSTANCE_APP]) {
-      window[INSTANCE_APP] = new App(canvas);
+    if (!window[INSTANCE_POND]) {
+      window[INSTANCE_POND] = new Pond(canvas);
     }
-    return window[INSTANCE_APP];
+    return window[INSTANCE_POND];
   }
 
   constructor(canvas: any) {
@@ -159,37 +149,32 @@ export default class App {
   }
 
   keydown(e: KeyboardEvent) {
-    if(e.keyCode == keys.up) {
-      keyNav.y = -1;
-      this.model.userTadpole.momentum = this.model.userTadpole.targetMomentum = this.model.userTadpole.maxMomentum;
-      e.preventDefault();
+    e.preventDefault();
+    switch(e.key) {
+      case 'ArrowUp':
+        keyNav.y = -1;
+        break;
+      case 'ArrowDown':
+        keyNav.y = 1;
+        break;
+      case 'ArrowLeft':
+        keyNav.x = -1;
+        break;
+      case 'ArrowRight':
+        keyNav.x = 1;
+        break;
     }
-    else if(e.keyCode == keys.down) {
-      keyNav.y = 1;
-      this.model.userTadpole.momentum = this.model.userTadpole.targetMomentum = this.model.userTadpole.maxMomentum;
-      e.preventDefault();
-    }
-    else if(e.keyCode == keys.left) {
-      keyNav.x = -1;
-      this.model.userTadpole.momentum = this.model.userTadpole.targetMomentum = this.model.userTadpole.maxMomentum;
-      e.preventDefault();
-    }
-    else if(e.keyCode == keys.right) {
-      keyNav.x = 1;
-      this.model.userTadpole.momentum = this.model.userTadpole.targetMomentum = this.model.userTadpole.maxMomentum;
-      e.preventDefault();
-    }
+    this.model.userTadpole.momentum = this.model.userTadpole.targetMomentum = this.model.userTadpole.maxMomentum;
   }
 
   keyup(e: KeyboardEvent) {
-    if(e.keyCode == keys.up || e.keyCode == keys.down) {
+    if(e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       keyNav.y = 0;
       if(keyNav.x == 0 && keyNav.y == 0) {
         this.model.userTadpole.targetMomentum = 0;
       }
       e.preventDefault();
-    }
-    else if(e.keyCode == keys.left || e.keyCode == keys.right) {
+    } else if(e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       keyNav.x = 0;
       if(keyNav.x == 0 && keyNav.y == 0) {
         this.model.userTadpole.targetMomentum = 0;
@@ -210,7 +195,6 @@ export default class App {
       this.mouse.x = touch.x;
       this.mouse.y = touch.y;
     }
-    console.log('====>>', touch, this.mouse)
   }
 
 

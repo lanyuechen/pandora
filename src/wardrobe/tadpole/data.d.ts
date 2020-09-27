@@ -1,5 +1,9 @@
 import Tadpole from './tadpole';
 
+export interface PropsType {
+  height: number;
+}
+
 export interface ModelType {
   tadpoles: {[key: string]: Tadpole};
   userTadpole: Tadpole;

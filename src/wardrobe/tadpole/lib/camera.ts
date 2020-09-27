@@ -1,4 +1,4 @@
-import { ModelType, BoundsType } from "./data";
+import { ModelType, BoundsType } from "../data";
 import hslToRgb from './hsl2rgb';
 
 let backgroundColor = Math.random()*360;
