@@ -33,4 +33,9 @@
     解决方式：将组件引用入口改为`taro-ui/dist/index.esm.js`(通过修改`taro-ui`的`package.json`文件实现)
 - [ ] AtSwipeAction组件卡顿
 
+### F2的坑
+
+- [ ] 图表不能显示tooltip
+- [x] Canvas组件尺寸、F2.Chart参数尺寸、canvas实例尺寸以及pixelRadio之间的关系
+
 ### 不知道是谁的坑的坑
