@@ -6,6 +6,8 @@ import F2 from '@antv/f2';
 
 export default (props: any) => {
   const sysInfo = useMemo(() => Taro.getSystemInfoSync(), []);
+  const width = sysInfo.windowWidth;
+  const height = width / 2;
 
   const draw = (chart: F2.Chart) => {
     const data = [
@@ -30,14 +32,15 @@ export default (props: any) => {
     Taro.nextTick(() => {
       Taro.createSelectorQuery().select('#canvas').fields({ node: true, size: true }).exec((res) => {
         const canvas = res[0].node;
-        canvas.width = sysInfo.windowWidth;
-        canvas.height = sysInfo.windowWidth / 2;
+        canvas.width = width * sysInfo.pixelRatio;
+        canvas.height = height * sysInfo.pixelRatio;
 
         // Step 1: 创建 Chart 对象
         const chart = new F2.Chart({
           context: canvas.getContext('2d'),
-          width: sysInfo.windowWidth,
-          height: sysInfo.windowWidth / 2,
+          width,
+          height,
+          pixelRatio: sysInfo.pixelRatio,
         });
 
         draw(chart);
@@ -49,10 +52,7 @@ export default (props: any) => {
     <Canvas
       type="2d"
       id="canvas"
-      style={{
-        width: sysInfo.windowWidth,
-        height: sysInfo.windowWidth / 2,
-      }}
+      style={{ width, height }}
     />
   );
 }
